@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.pages.home');
+});
+Route::get('/category', function () {
+    return view('frontend.pages.category');
 });
 
-Route::get('/test', function () {
-    return view('home');
-});
+

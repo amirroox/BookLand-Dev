@@ -3,5 +3,8 @@
 @section('title', 'Category')
 
 @section('content')
-    <p>Category Welcome</p>
+    <div class="p-5 bg-gray-600 rounded-lg">
+        <p>hello</p>
+        {{__('custom.welcome')}}
+    </div>
 @endsection

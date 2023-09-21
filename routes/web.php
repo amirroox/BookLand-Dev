@@ -16,12 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/category', function () {
-    return view('frontend.pages.category');
-});
-
-Route::get('/mail', function () {
-    Mail::to('amirroox@yahoo.com')->send(new MailTemplate('Amir', 'Roox'));
+    return view('frontend.pages.home');
 });

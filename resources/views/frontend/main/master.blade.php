@@ -1,11 +1,20 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+    <!-- START HEAD LINK -->
+    @include('frontend.main.head')
+    <!-- END HEAD LINK -->
+
+<body class="mx-auto bg-gray-900">
 @include('frontend.main.header')
 
     <!-- START MAIN SECTION -->
-    <section class="p-10 bg-gray-900 text-white">
-        <div class="p-5 bg-gray-600 rounded-lg">
+    <section class="container p-10 text-white mx-auto">
             @yield('content')
-        </div>
     </section>
     <!-- END MAIN SECTION -->
 
 @include('frontend.main.footer')
+
+</body>
+</html>

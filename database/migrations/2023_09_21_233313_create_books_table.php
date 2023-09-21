@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('amount');
-            $table->char('ref_code', 128)->nullable();
-            $table->enum('status', ['paid', 'unpaid']);
+            $table->string('name', 255)->unique();
+            $table->string('url', 1024);
+            $table->string('cover', 1024);
+            $table->string('custom', 1024)->nullable();
             $table->datetime('created_at');
             $table->datetime('updated_at');
         });
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('books');
     }
 };

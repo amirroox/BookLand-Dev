@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\MailTemplate;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('frontend.pages.home');
+    return view('welcome');
 });
 Route::get('/category', function () {
     return view('frontend.pages.category');
 });
 
-
+Route::get('/mail', function () {
+    Mail::to('amirroox@yahoo.com')->send(new MailTemplate('Amir', 'Roox'));
+});

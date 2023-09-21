@@ -26,3 +26,21 @@
 </footer>
 <!-- END FOOTER SECTION -->
 <script src="https://kit.fontawesome.com/496bc94ed3.js" crossorigin="anonymous"></script>
+{{-- Script For Sharing Host Deploy --}}
+{{--<script>--}}
+{{--    const baseUrl = '{{ \Illuminate\Support\Facades\URL::to('/') }}';--}}
+{{--    const allLinkToPublic = document.querySelectorAll('link');--}}
+{{--    const allImgToPublic = document.querySelectorAll('img');--}}
+{{--    allLinkToPublic.forEach(function (link){--}}
+{{--        if(!link.href.search(baseUrl)){--}}
+{{--            let replace = link.href.replace(baseUrl, '');--}}
+{{--            link.href = 'public' + replace;--}}
+{{--        }--}}
+{{--    });--}}
+{{--    allImgToPublic.forEach(function (img){--}}
+{{--        if(!img.src.search(baseUrl)){--}}
+{{--            let replace = img.src.replace(baseUrl, '');--}}
+{{--            img.src = 'public' + replace;--}}
+{{--        }--}}
+{{--    });--}}
+{{--</script>--}}

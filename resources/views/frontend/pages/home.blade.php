@@ -4,4 +4,5 @@
 
 @section('content')
     <p>hello</p>
+    {{__('custom.welcome')}}
 @endsection

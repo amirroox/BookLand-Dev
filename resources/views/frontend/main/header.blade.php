@@ -1,5 +1,5 @@
 <!-- START HEADER SECTION -->
-<header
+<header id="MyHeader"
     class="md:container mx-auto grid grid-cols-1 md:grid-cols-8 gap-y-5 md:gap-10 md:items-center text-center pt-8 pb-2 text-white md:sticky top-0">
     <div class="md:col-span-1">
         <img class="w-40 md:w-32 mx-auto" src='{{asset("/img/Book.png")}}' alt="Logo">

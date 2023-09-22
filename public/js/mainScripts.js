@@ -3,11 +3,11 @@
     const HeaderSection = document.querySelector('header');
     window.addEventListener('scroll', function() {
     if (window.scrollY > 50) {
-    HeaderSection.classList.add('md:bg-white', 'md:opacity-90', '!pb-10');
-    HeaderSection.classList.remove('md:container');
+        HeaderSection.classList.remove('md:container');
+        HeaderSection.classList.add('scrolledMyHeader')
 } else {
-    HeaderSection.classList.add('md:container');
-    HeaderSection.classList.remove('md:bg-white', 'md:opacity-90', '!pb-10');
+        HeaderSection.classList.remove('scrolledMyHeader');
+        HeaderSection.classList.add('md:container')
 }
 });
 

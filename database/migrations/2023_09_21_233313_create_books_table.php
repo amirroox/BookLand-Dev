@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255)->unique();
-            $table->string('url', 1024);
+            $table->string('url', 1024)->unique();
             $table->string('cover', 1024);
             $table->string('custom', 1024)->nullable();
             $table->datetime('created_at');

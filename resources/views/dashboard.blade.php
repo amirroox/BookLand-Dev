@@ -7,6 +7,16 @@
 
     <div class="py-12">
         @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
+            @if(session()->has('MassageAdd'))
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white dark:bg-green-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100 grid grid-cols-6 gap-10">
+                            {{ session('MassageAdd') }}
+                        </div>
+                    </div>
+                </div>
+                <br>
+            @endif
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100 grid grid-cols-6 gap-10">
@@ -28,7 +38,8 @@
                             </div>
                             {!! Form::close() !!}
                             @if($errors->hasAny(['categoryTitle', 'categorySlug']))
-                                <div class="flex flex-col gap-2 mb-2 w-10/12 rounded-lg bg-red-500 pl-4 ml-2 py-8 text-center">
+                                <div
+                                    class="flex flex-col gap-2 mb-2 w-10/12 rounded-lg bg-red-500 pl-4 ml-2 py-8 text-center">
                                     <ul>
                                         @foreach($errors->all() as $error)
                                             <li>{{ $error }}</li>
@@ -70,7 +81,9 @@
                             </div>
                             {!! Form::close() !!}
                             @if($errors->hasAny(['categoryList', 'bookName', 'urlDownload', 'urlCover']))
-                                <div class="flex flex-col gap-2 mb-2 w-10/12 rounded-lg bg-red-500 pl-4 ml-2 py-8 text-center" dir="ltr">
+                                <div
+                                    class="flex flex-col gap-2 mb-2 w-10/12 rounded-lg bg-red-500 pl-4 ml-2 py-8 text-center"
+                                    dir="ltr">
                                     <ul>
                                         @foreach($errors->all() as $error)
                                             <li>{{ $error }}</li>

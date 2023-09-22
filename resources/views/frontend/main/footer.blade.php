@@ -1,5 +1,5 @@
 <!-- START FOOTER SECTION -->
-<footer class="px-7 text-white">
+<footer class="px-7 text-white pb-5">
     <div class="grid grid-cols-2 md:grid-cols-9 gap-y-5 md:gap-10 md:items-center py-4">
         <div class="col-span-1 md:col-span-3 flex justify-center items-center gap-2">
             <i class="text-red-500 fa-solid fa-location-crosshairs fa-2xl"></i>

@@ -17,8 +17,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('frontend.pages.home');
+    $Books = \App\Models\Book::limit(8)->orderBy('created_at', 'desc')->get();
+    return view('frontend.pages.home', ['Books' => $Books]);
 })->name('home');
+
+Route::get('/About-Us', function () {
+    return view('frontend.pages.aboutUs');
+})->name('aboutUs');
+
+Route::get('/category', function () {
+    return view('frontend.pages.aboutUs');
+})->name('category');
+
+Route::get('/library', function () {
+    return view('frontend.pages.aboutUs');
+})->name('library');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -35,5 +48,5 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/{Category}', [CategoryController::class, 'show']);
-Route::get('/{Category}/{Book}', [BookController::class, 'show']);
+Route::get('/category/{Category}', [CategoryController::class, 'show']);
+Route::get('/category/{Category}/{Book}', [BookController::class, 'show']);

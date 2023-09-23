@@ -1,14 +1,16 @@
 // Script For Header
 
-    const HeaderSection = document.querySelector('header');
-    window.addEventListener('scroll', function() {
-    if (window.scrollY > 50) {
-        HeaderSection.classList.remove('md:container');
-        HeaderSection.classList.add('scrolledMyHeader')
-} else {
-        HeaderSection.classList.remove('scrolledMyHeader');
-        HeaderSection.classList.add('md:container')
-}
+const HeaderSection = $('#MyHeader');
+$(window).scroll(function () {
+    if ($(this).scrollTop() > 50) {
+        // Fixing Jump
+        if($(this).scrollTop() > 50 && $(this).scrollTop() < 55){
+            $(this).scrollTop(56);
+        }
+        HeaderSection.addClass('scrolledMyHeader')
+    } else {
+        HeaderSection.removeClass('scrolledMyHeader');
+    }
 });
 
 

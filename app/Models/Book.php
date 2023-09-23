@@ -28,6 +28,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereUrl($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Category> $categories
  * @property-read int|null $categories_count
+ * @property string|null $cover_url
+ * @property string|null $photo_path
+ * @method static \Illuminate\Database\Eloquent\Builder|Book whereCoverUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Book wherePhotoPath($value)
  * @mixin \Eloquent
  */
 class Book extends Model

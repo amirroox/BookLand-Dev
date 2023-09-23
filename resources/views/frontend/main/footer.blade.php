@@ -26,4 +26,5 @@
 </footer>
 <!-- END FOOTER SECTION -->
 <script src="https://kit.fontawesome.com/496bc94ed3.js" crossorigin="anonymous"></script>
+<script src="{{ asset("js/libraries/jquery.min.js") }}"></script>
 <script src="{{ asset("js/mainScripts.js") }}"></script>

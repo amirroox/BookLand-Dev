@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Book> $books
  * @property-read int|null $books_count
+ * @property string|null $photo_path
+ * @method static \Illuminate\Database\Eloquent\Builder|Category wherePhotoPath($value)
  * @mixin \Eloquent
  */
 class Category extends Model

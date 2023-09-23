@@ -13,15 +13,26 @@ class BookController extends Controller
             'categoryList' => 'required|max:255',
             'bookName' => 'required|min:2|max:255|unique:App\Models\Book,name',
             'urlDownload' => 'required|min:2|max:255|url|unique:App\Models\Book,url',
-            'urlCover' => 'required|min:2|max:255|url',
+            'urlCover' => 'nullable|min:2|max:255|url',
+            'filePathBook' => 'nullable|mimes:jpg,jpeg,gif,png,tiff'
         ]);
+
+        $book = new Book();
+
+        if($file = $request->file('filePathBook')){
+            $path = '/img/books/' . $file->hashName();
+            $file->move('img/books', $file->hashName());
+            $book->photo_path = $path;
+        }
 
         $categoryList = array_map('intval', $request->input('categoryList')); # array => [1,2,3]
 
-        $book = new Book();
+
         $book->name = $request->input('bookName');
         $book->url = $request->input('urlDownload');
-        $book->cover = $request->input('urlCover');
+        if (!is_null($request->input('urlCover'))){
+            $book->cover = $request->input('urlCover');
+        }
         $book->save();
         $book->categories()->attach($categoryList); # Relative Between Book And Categories
 

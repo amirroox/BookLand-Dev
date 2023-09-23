@@ -7,8 +7,12 @@ header#MyHeader {
 }
 
 .scrolledMyHeader {
-    padding: .5rem 2rem !important;
     background-color: white;
     border-radius: 0 0 20px 20px;
     opacity: 90%;
+}
+@media screen and (min-width:728px ) {
+    .scrolledMyHeader {
+        padding: .5rem 2rem !important;
+    }
 }

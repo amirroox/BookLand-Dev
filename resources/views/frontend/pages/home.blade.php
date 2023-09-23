@@ -12,14 +12,19 @@
             <h2 class="text-2xl mb-5 text-center"><b>کتاب های جدید :</b></h2>
             <div class="grid grid-cols-1 md:grid-cols-4 text-center mb-10 gap-4">
                 @foreach($Books as $Book)
-                    <a href="{{url($Book->categories[0]->slug . '/' . $Book->name)}}" class="h-96">
+                    <a href="{{url($Book->categories[0]->slug . '/' . $Book->name)}}"
+                       class="inline-block h-[21rem] md:h-[23.5rem]">
                         <div
-                            class="h-full col-span-1 bg-gray-800 px-10 pt-5 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
+                            class="h-full space-y-3 col-span-1 bg-gray-800 px-10 pt-5 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
                             <h3 class="mb-4"><b>{{$Book->name}}</b></h3>
                             <div class="w-full h-3/4 overflow-hidden">
                                 <img
                                     src="{{ ($Book->cover ?? ( strpos(asset($Book->photo_path), 'img/books') ? asset($Book->photo_path) : asset('img/books/template.png') )) }}"
                                     alt="{{$Book->name}}" class="rounded-3xl object-fill w-full h-full">
+                            </div>
+                            <div>
+                                <span>{{ views($Book)->unique()->count() }}</span>
+                                <i class="fa-solid fa-eye"></i>
                             </div>
                         </div>
                     </a>
@@ -111,10 +116,12 @@
                 }
             }
 
-            let allBooks = {{ count($allBooks) }};
-            let allCategories = {{ count($allCategories) }};
+            const allBooks = {{ count($allBooks) }};
+            const allCategories = {{ count($allCategories) }};
+            const allViews = {{ views(\App\Models\Book::class)->count() }};
 
             const phrases = [
+                ` بازدید ها : ${allViews}`,
                 ` کتاب ها : ${allBooks}`,
                 ` دسته ها : ${allCategories}`,
                 ": Created By",

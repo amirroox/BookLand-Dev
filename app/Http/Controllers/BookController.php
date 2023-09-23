@@ -43,6 +43,7 @@ class BookController extends Controller
     {
         $book = Book::where('name', $book)->first();
         if(!is_null($book)){
+            views($book)->record();
             return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book]);
         }
         return redirect()->route('home');

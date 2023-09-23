@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -32,11 +34,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string|null $photo_path
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereCoverUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book wherePhotoPath($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \CyrildeWit\EloquentViewable\View> $views
+ * @property-read int|null $views_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Book orderByUniqueViews(string $direction = 'desc', $period = null, ?string $collection = null, string $as = 'unique_views_count')
+ * @method static \Illuminate\Database\Eloquent\Builder|Book orderByViews(string $direction = 'desc', ?\CyrildeWit\EloquentViewable\Support\Period $period = null, ?string $collection = null, bool $unique = false, string $as = 'views_count')
+ * @method static \Illuminate\Database\Eloquent\Builder|Book withViewsCount(?\CyrildeWit\EloquentViewable\Support\Period $period = null, ?string $collection = null, bool $unique = false, string $as = 'views_count')
  * @mixin \Eloquent
  */
-class Book extends Model
+class Book extends Model implements Viewable
 {
     use HasFactory;
+    use InteractsWithViews;
 
     public function categories() :BelongsToMany
     {

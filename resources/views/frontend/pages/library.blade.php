@@ -10,21 +10,29 @@
             <div class="grid grid-cols-1 md:grid-cols-4 text-center mb-10 gap-4">
                 @foreach($Books as $Book)
                     <div
-                        class="h-full col-span-1 bg-gray-800 px-10 pt-5 pb-10 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
-                        <a href="{{ url($Book->categories[0]->slug . '/' . $Book->name) }}">
-                            <div class="w-full h-3/4 overflow-hidden">
+                        class="col-span-1 bg-gray-800 px-10 pt-5 pb-10 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
+                        <a href="{{ url($Book->categories[0]->slug . '/' . $Book->name) }}" class="inline-block h-60 md:h-64 space-y-6">
+                            <div>
+                                <span>{{ views($Book)->unique()->count() }}</span>
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                            <div class="h-full h-3/4 overflow-hidden">
                                 <img class="rounded-3xl object-fill w-full h-full"
                                      src="{{ ($Book->cover ?? ( strpos(asset($Book->photo_path), 'img/books') ? asset($Book->photo_path) : asset('img/books/template.png') )) }}"
                                      alt="{{$Book->name}}">
                             </div>
-                            <h3 class="my-5"><b>{{$Book->name}}</b></h3>
+                            <h3><b>{{$Book->name}}</b></h3>
                         </a>
-                        @foreach($Book->categories as $category)
-                            <a href="{{url($category->slug)}}"
+                        <hr class="pb-5">
+                        @for($i=0 ; $i < 3 ; $i++)
+                            @if(!isset($Book->categories[$i]))
+                                @break
+                            @endif
+                            <a href="{{url($Book->categories[$i]->slug)}}"
                                class="hover:duration-300 hover:bg-white hover:text-red-500">
-                                <h4>{{$category->title}}</h4>
+                                <h4>{{$Book->categories[$i]->title}}</h4>
                             </a>
-                        @endforeach
+                        @endfor
                     </div>
                 @endforeach
             </div>

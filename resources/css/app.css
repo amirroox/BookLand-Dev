@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    img {
+        transition: filter .5s;
+    }
+    img:hover {
+        /*filter: hue-rotate(245deg);*/
+        filter: invert(1);
+    }
+}

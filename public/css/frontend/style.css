@@ -11,7 +11,7 @@ header#MyHeader {
     border-radius: 0 0 20px 20px;
     opacity: 90%;
 }
-@media screen and (min-width:728px ) {
+@media screen and (min-width:640px ) {
     .scrolledMyHeader {
         padding: .5rem 2rem !important;
     }

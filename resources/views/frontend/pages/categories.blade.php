@@ -10,14 +10,14 @@
             <div class="grid grid-cols-1 md:grid-cols-4 text-center mb-5 gap-4">
                 @foreach($allCategories as $Category)
                     <div
-                        class="col-span-1 h-full overflow-hidden bg-gray-800 px-10 pt-5 pb-10 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
-                        <a href="{{url($Category->slug)}}">
-                            <div class="w-full h-3/4 overflow-hidden">
+                        class="col-span-1 overflow-hidden bg-gray-800 px-10 pt-5 pb-10 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
+                        <a href="{{url($Category->slug)}}" class="inline-block h-64 space-y-6">
+                            <div class="h-full h-3/4 overflow-hidden">
                                 <img
                                     src="{{ !is_null($Category->photo_path) ? asset($Category->photo_path) : asset('img/categories/template.jpg') }}"
                                     alt="{{$Category->title}}" class="rounded-3xl object-fill w-full h-full">
                             </div>
-                            <h3 class="mt-3"><b>{{$Category->title}}</b></h3>
+                            <h3><b>{{$Category->title}}</b></h3>
                         </a>
                     </div>
                 @endforeach

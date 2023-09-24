@@ -1,15 +1,18 @@
-// Script For Header
+// Script For Header and Footer
 
 const HeaderSection = $('#MyHeader');
+const footerLang = $('#footerLang');
 $(window).scroll(function () {
     if ($(this).scrollTop() > 50) {
         // Fixing Jump
         if($(this).scrollTop() > 50 && $(this).scrollTop() < 55){
             $(this).scrollTop(56);
         }
-        HeaderSection.addClass('scrolledMyHeader')
+        HeaderSection.addClass('scrolledMyHeader');
+        footerLang.addClass('!block');
     } else {
         HeaderSection.removeClass('scrolledMyHeader');
+        footerLang.removeClass('!block');
     }
 });
 

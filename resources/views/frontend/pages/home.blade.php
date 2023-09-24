@@ -3,6 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
+    <h1>{{__('custom.welcome')}}</h1>
     <div
         class="[&>div]:rounded-3xl [&>div]:mb-12 [&>div]:p-5 [&>div]:mx-auto [&>div]:bg-gray-900 p-5 bg-gray-800 rounded-3xl">
         <div class="!p-0 overflow-hidden">

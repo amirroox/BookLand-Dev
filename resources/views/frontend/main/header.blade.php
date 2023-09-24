@@ -34,7 +34,7 @@
                 </a>
             </li>
             <li class="hover:text-red-500">
-                <a href="{{route('aboutUs')}}" class="md:flex md:flex-col md:gap-5">
+                <a href="https://ro-ox.com/rooxteam/about/" target="_blank" class="md:flex md:flex-col md:gap-5">
                     <span class="hidden md:inline"><i class="fa-solid fa-users fa-xl"></i></span>
                     <span class="md:hidden"><i class="fa-solid fa-users"></i></span>
                     {{__('custom.header.about us')}}

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Panel') }}
+            {{ __('auth.dashboard.panel') }}
         </h2>
     </x-slot>
 
@@ -21,25 +21,25 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100 grid grid-cols-1 md:grid-cols-6 gap-10">
                         <div class="col-span-3">
-                            <h2 class="mb-2"><b>Add Category</b></h2>
+                            <h2 class="mb-2"><b>{{ __('auth.dashboard.addCategory') }}</b></h2>
                             <hr>
                             <br>
                             {!! Form::open(['action' => 'POST', 'url' => route('category.create'), 'files' => true]) !!}
                             <div class="flex flex-col gap-2 mb-2">
-                                {!! Form::label('categoryTitle', 'Category Title :', ['class' => 'w-full']) !!}
+                                {!! Form::label('categoryTitle',  __('auth.dashboard.addCategory'), ['class' => 'w-full']) !!}
                                 {!! Form::text('categoryTitle', '', ['class' => 'rounded-lg text-black md:w-10/12 pl-4 ml-2', 'placeholder' => 'Laravel']) !!}
                             </div>
                             <div class="flex flex-col gap-2 mb-2">
-                                {!! Form::label('categorySlug', 'Slug :', ['class' => 'w-full']) !!}
+                                {!! Form::label('categorySlug', __('auth.dashboard.slug'), ['class' => 'w-full']) !!}
                                 {!! Form::text('categorySlug', '', ['class' => 'rounded-lg text-black md:w-10/12 pl-4 ml-2', 'placeholder' => 'Laravel-Learning']) !!}
                             </div>
                             <div class="flex flex-col gap-2 mb-2">
-                                {!! Form::label('filePath', 'Picture Category :', ['class' => 'w-full']) !!}
-                                {!! Form::label('filePath', 'Picture Category :', ['class' => 'rounded-lg bg-white text-black text-center md:w-10/12 p-4 ml-2 hover:duration-300 hover:cursor-pointer hover:bg-red-500']) !!}
+                                {!! Form::label('filePath', __('auth.dashboard.picCategory'), ['class' => 'w-full']) !!}
+                                {!! Form::label('filePath', __('auth.dashboard.picCategory'), ['class' => 'rounded-lg bg-white text-black text-center md:w-10/12 p-4 ml-2 hover:duration-300 hover:cursor-pointer hover:bg-red-500']) !!}
                                 {!! Form::file('filePath', ['class' => 'hidden']) !!}
                             </div>
                             <div class="flex flex-col gap-2 mb-2">
-                                {!! Form::submit('Add Category', ['class' => 'rounded-lg bg-blue-500 hover:duration-300 hover:bg-red-500 p-2 md:w-10/12 ml-2 hover:cursor-pointer']) !!}
+                                {!! Form::submit(__('auth.dashboard.addCategory'), ['class' => 'rounded-lg bg-blue-500 hover:duration-300 hover:bg-red-500 p-2 md:w-10/12 ml-2 hover:cursor-pointer']) !!}
                             </div>
                             {!! Form::close() !!}
                             @if($errors->hasAny(['categoryTitle', 'categorySlug']))
@@ -55,12 +55,12 @@
 
                         </div>
                         <div class="col-span-3" dir="rtl">
-                            <h2 class="text-right mb-2"><b>Add Book</b></h2>
+                            <h2 class="text-right mb-2"><b>{{ __('auth.dashboard.addBook') }}</b></h2>
                             <hr>
                             <br>
                             {!! Form::open(['action' => 'POST', 'url' => route('book.create') , 'files' => true]) !!}
                             <div class="flex flex-col gap-2 mb-2">
-                                <label for="categoryList" class="w-full">Category Book :</label>
+                                <label for="categoryList" class="w-full">{{ __('auth.dashboard.catBook') }}</label>
                                 <select name="categoryList[]" id="categoryList"
                                         class="rounded-lg text-black md:w-10/12 pl-4 ml-2" multiple>
                                     {{ $allCategory = \App\Models\Category::get() }}
@@ -70,24 +70,24 @@
                                 </select>
                             </div>
                             <div class="flex flex-col gap-2 mb-2">
-                                {!! Form::label('bookName', 'Book Name :', ['class' => 'w-full']) !!}
+                                {!! Form::label('bookName', __('auth.dashboard.bookName'), ['class' => 'w-full']) !!}
                                 {!! Form::text('bookName', '', ['class' => 'rounded-lg text-black md:w-10/12 pl-4 ml-2', 'placeholder' => 'Mastering Laravel']) !!}
                             </div>
                             <div class="flex flex-col gap-2 mb-2">
-                                {!! Form::label('urlDownload', 'Url Download :', ['class' => 'w-full']) !!}
+                                {!! Form::label('urlDownload', __('auth.dashboard.urlDownload'), ['class' => 'w-full']) !!}
                                 {!! Form::text('urlDownload', '', ['class' => 'text-left rounded-lg text-black md:w-10/12 pl-4 ml-2', 'dir' => 'ltr', 'placeholder' => '(libgen.is) - https://libgen.is/book/index.php?md5=?']) !!}
                             </div>
                             <div class="flex flex-col gap-2 mb-2">
-                                {!! Form::label('urlCover', 'Url Cover :', ['class' => 'w-full']) !!}
+                                {!! Form::label('urlCover', __('auth.dashboard.urlCover'), ['class' => 'w-full']) !!}
                                 {!! Form::text('urlCover', '', ['class' => 'rounded-lg text-black md:w-10/12 pl-4 ml-2 text-left', 'dir' => 'ltr', 'placeholder' => 'Custom Link Cover']) !!}
                             </div>
                             <div class="flex flex-col gap-2 mb-2">
-                                {!! Form::label('filePathBook', 'Picture Book :', ['class' => 'w-full']) !!}
-                                {!! Form::label('filePathBook', 'Picture Book :', ['dir' => 'ltr', 'class' => 'rounded-lg bg-white text-black text-center md:w-10/12 p-4 ml-2 hover:duration-300 hover:cursor-pointer hover:bg-red-500']) !!}
+                                {!! Form::label('filePathBook', __('auth.dashboard.picBook'), ['class' => 'w-full']) !!}
+                                {!! Form::label('filePathBook', __('auth.dashboard.picBook'), ['dir' => 'ltr', 'class' => 'rounded-lg bg-white text-black text-center md:w-10/12 p-4 ml-2 hover:duration-300 hover:cursor-pointer hover:bg-red-500']) !!}
                                 {!! Form::file('filePathBook', ['class' => 'hidden']) !!}
                             </div>
                             <div class="flex flex-col gap-2 mb-2">
-                                {!! Form::submit('Add Book', ['class' => 'rounded-lg bg-blue-500 hover:duration-300 hover:bg-red-500 p-2 md:w-10/12 ml-2 hover:cursor-pointer']) !!}
+                                {!! Form::submit(__('auth.dashboard.addBook'), ['class' => 'rounded-lg bg-blue-500 hover:duration-300 hover:bg-red-500 p-2 md:w-10/12 ml-2 hover:cursor-pointer']) !!}
                             </div>
                             {!! Form::close() !!}
                             @if($errors->hasAny(['categoryList', 'bookName', 'urlDownload', 'urlCover']))

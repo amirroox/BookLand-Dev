@@ -36,10 +36,6 @@ Route::middleware('language')->group(function () {
         return view('frontend.pages.home', ['allBooks' => $allBooks, 'allCategories' => $allCategories, 'Books' => $Books, 'Categories' => $Categories]);
     })->name('home');
 
-    Route::get('/About-Us', function () {
-        return view('frontend.pages.aboutUs');
-    })->name('aboutUs');
-
     Route::get('/categories', function () {
         $allCategories = Category::get();
         return view('frontend.pages.categories', ['allCategories' => $allCategories]);

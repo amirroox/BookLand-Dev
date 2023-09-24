@@ -46,7 +46,7 @@
     <div class="md:col-span-2 my-2 [&>ul]:text-red-500">
         <ul class="font-bold flex justify-evenly">
             <li class="hover:text-blue-500">
-                <a href="" class="flex flex-col gap-5">
+                <a href="https://github.com/amirroox/BookLand-Dev" target="_blank" class="flex flex-col gap-5">
                     <span><i class="fa-brands fa-github fa-xl"></i></span>
                     گیت هاب
                 </a>

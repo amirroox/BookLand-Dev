@@ -143,5 +143,19 @@
 
             next();
         </script>
+
+        <div>
+            <div class="grid grid-cols-1 md:grid-cols-2 text-center gap-4 py-10 [&>a]:hover:duration-300 [&>a]:rounded-3xl">
+                <a href="javascript:void(0);alertAjax()" class="text-center block text-2xl col-span-1 bg-red-500 hover:bg-gray-700 p-10">
+                    <i class="fa-brands fa-get-pocket align-middle"></i>
+                        درخواست کتاب
+                </a>
+                <a href="https://github.com/amirroox/BookLand-Dev/issues/new?title=[Suggestion]" target="_blank"
+                   class="text-center block text-2xl col-span-1 bg-blue-500 hover:bg-gray-700 p-10">
+                    <i class="fa-solid fa-paper-plane align-middle"></i>
+                        ارسال مشکل
+                </a>
+            </div>
+        </div>
     </div>
 @endsection

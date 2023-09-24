@@ -12,14 +12,14 @@
             <i class="text-red-500 fa-brands fa-github fa-2xl"></i>
             <div>
                 <h4 class="font-bold text-red-500">Github</h4>
-                <a href=""><p class="text-blue-500 hover:text-red-700">....</p></a>
+                <a href="https://github.com/amirroox/BookLand-Dev" target="_blank"><p class="text-blue-500 hover:text-red-700">BookLand-Dev</p></a>
             </div>
         </div>
         <div class="hidden md:flex md:col-span-3 justify-center items-center gap-2">
             <i class="text-red-500 fa-solid fa-envelope fa-2xl"></i>
             <div>
                 <h4 class="font-bold text-red-500">Mail Us</h4>
-                <a href=""><p class="text-blue-500 hover:text-red-700">info@ro-ox.com</p></a>
+                <a href="mailto:info@ro-ox.com"><p class="text-blue-500 hover:text-red-700">info@ro-ox.com</p></a>
             </div>
         </div>
     </div>

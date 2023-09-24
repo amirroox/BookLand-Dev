@@ -32,3 +32,27 @@ $(window).scroll(function () {
 //     {{--            }--}}
 //     {{--        });--}}
 //     {{--    }--}}
+
+
+// Script For Ajax Model Request Book
+function alertAjax(){
+    Swal.fire({
+        title: 'اسم کتاب مورد نظرتون رو بنویسید',
+        html:
+            '<input id="swal-input1" class="swal2-input" placeholder="نام کتاب">' +
+            '<input id="swal-input2" class="swal2-input" placeholder="نام نویسنده">' ,
+        showCancelButton: true,
+        confirmButtonText: 'درخواست',
+        cancelButtonText: 'لغو',
+        showLoaderOnConfirm: true,
+
+    }).then(() => {
+        let inp1 = $('#swal-input1').val();
+        let inp2 = $('#swal-input2').val();
+        let linkGiyHub = 'https://github.com/amirroox/BookLand-Dev/issues/new';
+        if (inp1 && inp2) {
+            let text = `**Name BOOK :** _${inp1}_ \`and\` **Name Author :** _${inp2}_`;
+            window.open(`${linkGiyHub}?title=[Need Book] : ${inp1}&body=${text}`, '_blank');
+        }
+    })
+}

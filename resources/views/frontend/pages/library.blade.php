@@ -6,7 +6,7 @@
     <div
         class="[&>div]:rounded-3xl [&>div]:mb-12 [&>div]:p-5 [&>div]:mx-auto [&>div]:bg-gray-900 p-5 bg-gray-800 rounded-3xl">
         <div class="relative">
-            <h2 class="text-2xl mb-5 text-center"><b>کتاب ها :</b></h2>
+            <h2 class="text-2xl mb-5 text-center"><b>{{__('custom.home.books')}}</b></h2>
             <div class="grid grid-cols-1 md:grid-cols-4 text-center mb-10 gap-4">
                 @foreach($Books as $Book)
                     <div
@@ -44,7 +44,7 @@
             @endif
             <a
                 class="text-center hover:duration-300 hover:bg-blue-500 absolute md:bottom-[-5vh] bottom-[-2vh] rounded-3xl mx-auto bg-red-500 left-[30%] right-[30%] p-2 md:p-6">
-                صفحه {{$Books->currentPage()}}
+                {{__('custom.home.page') . ' ' .$Books->currentPage()}}
             </a>
             @if(!is_null($Books->previousPageUrl()))
                 <a href="{{$Books->previousPageUrl()}}"

@@ -12,6 +12,21 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+    'loginPage' => [
+        'email' => 'Email',
+        'password' => 'Password',
+        'remember' => 'Remember Me',
+        'forget' => 'Forget Your password?',
+        'logIn' => 'LOG IN',
+    ],
+    'registerPage' => [
+        'name' => 'Name',
+        'email' => 'Email',
+        'password' => 'Password',
+        'conPassword' => 'Confirm Password',
+        'already' => 'Admin?',
+        'register' => 'REGISTER',
+    ],
 
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',

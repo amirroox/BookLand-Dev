@@ -6,7 +6,7 @@
     <div
         class="[&>div]:rounded-3xl [&>div]:mb-12 [&>div]:p-5 [&>div]:mx-auto [&>div]:bg-gray-900 p-5 bg-gray-800 rounded-3xl">
         <div>
-            <h2 class="text-2xl mb-5 text-center"><b>دسته بندی ها :</b></h2>
+            <h2 class="text-2xl mb-5 text-center"><b>{{__('custom.home.categories')}}</b></h2>
             <div class="grid grid-cols-1 md:grid-cols-4 text-center mb-5 gap-4">
                 @foreach($allCategories as $Category)
                     <div

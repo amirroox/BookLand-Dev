@@ -12,6 +12,22 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+    'loginPage' => [
+        'email' => 'ایمیل',
+        'password' => 'رمز',
+        'remember' => 'مرا به خاطر بسپار',
+        'forget' => 'فراموشی رمز عبور؟',
+        'logIn' => 'ورود',
+    ],
+
+    'registerPage' => [
+        'name' => 'نام',
+        'email' => 'ایمیل',
+        'password' => 'رمز',
+        'conPassword' => 'تایید رمز',
+        'already' => 'مدیری؟',
+        'register' => 'ثبت نام',
+    ],
 
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',

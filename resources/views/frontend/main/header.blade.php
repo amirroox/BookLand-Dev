@@ -12,7 +12,7 @@
                 <button type="submit"><i class="text-blue-500 hover:text-red-500 fa-brands fa-searchengin fa-2xl"></i>
                 </button>
                 <input class="p-1 text-center rounded-2xl outline-none bg-transparent border-2 border-red-500"
-                       type="text" name="search" id="search" placeholder="جستجو">
+                       type="text" name="search" id="search" placeholder="{{__('custom.header.search')}}">
             </label>
         </form>
     </div>
@@ -23,21 +23,21 @@
                 <a href="{{route('library')}}" class="md:flex md:flex-col md:gap-5">
                     <span class="hidden md:inline"><i class="fa-solid fa-book fa-xl"></i></span>
                     <span class="md:hidden"><i class="fa-solid fa-book"></i></span>
-                    کتابخانه
+                    {{__('custom.header.library')}}
                 </a>
             </li>
             <li class="hover:text-red-500">
                 <a href="{{route('category')}}" class="md:flex md:flex-col md:gap-5">
                     <span class="hidden md:inline"><i class="fa-solid fa-braille fa-xl"></i></span>
                     <span class="md:hidden"><i class="fa-solid fa-braille"></i></span>
-                    دسته بندی ها
+                    {{__('custom.header.categories')}}
                 </a>
             </li>
             <li class="hover:text-red-500">
                 <a href="{{route('aboutUs')}}" class="md:flex md:flex-col md:gap-5">
                     <span class="hidden md:inline"><i class="fa-solid fa-users fa-xl"></i></span>
                     <span class="md:hidden"><i class="fa-solid fa-users"></i></span>
-                    درباره ما
+                    {{__('custom.header.about us')}}
                 </a>
             </li>
         </ul>
@@ -48,14 +48,14 @@
             <li class="hover:text-blue-500">
                 <a href="https://github.com/amirroox/BookLand-Dev" target="_blank" class="flex flex-col gap-5">
                     <span><i class="fa-brands fa-github fa-xl"></i></span>
-                    گیت هاب
+                    {{__('custom.header.github')}}
                 </a>
             </li>
             @if(\Illuminate\Support\Facades\Auth::check())
             <li class="hover:text-blue-500">
                 <a href="{{route('dashboard')}}" class="flex flex-col gap-5">
                     <span><i class="fa-solid fa-user-secret fa-xl"></i></span>
-                    ادمین
+                    {{__('custom.header.admin')}}
                 </a>
             </li>
             @endif

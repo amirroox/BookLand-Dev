@@ -25,7 +25,7 @@ Route::get('/Language/{locale}', function (string $locale) {
 
     Session::put('locale',$locale);
     return redirect()->back();
-});
+})->name('language.switch');
 
 Route::middleware('language')->group(function () {
     Route::get('/', function () {
@@ -54,8 +54,6 @@ Route::middleware('language')->group(function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
 
-    Route::get('/{Category}', [CategoryController::class, 'show']);
-    Route::get('/{Category}/{Book}', [BookController::class, 'show']);
 });
 
 
@@ -69,3 +67,8 @@ Route::middleware(['language','auth'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::middleware('language')->group(function () {
+    Route::get('/{Category}', [CategoryController::class, 'show']);
+    Route::get('/{Category}/{Book}', [BookController::class, 'show']);
+});

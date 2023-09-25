@@ -3,6 +3,16 @@
 @section('title', 'Library')
 
 @section('content')
+
+    @if(\Illuminate\Support\Facades\Request::get('page') !== null && (\Illuminate\Support\Facades\Request::get('page') > $Books->lastPage()))
+
+        @php
+            header('Location: '. route('library'));
+            exit();
+        @endphp
+
+    @endif
+
     <div
         class="[&>div]:rounded-3xl [&>div]:mb-12 [&>div]:p-5 [&>div]:mx-auto [&>div]:bg-gray-900 p-5 bg-gray-800 rounded-3xl">
         <div class="relative">

@@ -33,7 +33,8 @@ class CategoryController extends Controller
     {
         $category = Category::where('slug', $category)->orWhere('title', $category)->first();
         if(!is_null($category)){
-            return view('frontend.pages.category', ['CurrentCategory' => $category]);
+            $allBooks = $category->books()->paginate(8);
+            return view('frontend.pages.category', ['CurrentCategory' => $category, 'Books' => $allBooks]);
         }
         return redirect()->route('home');
     }

@@ -13,7 +13,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 text-center mb-10 gap-4">
                 @foreach($Books as $Book)
                     <a href="{{url($Book->categories[0]->slug . '/' . $Book->name)}}"
-                       class="inline-block h-[21rem] md:h-[23.5rem]">
+                       class="inline-block h-[45vh] md:h-[23.5rem]">
                         <div
                             class="h-full space-y-3 col-span-1 bg-gray-800 px-10 pt-5 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
                             <h3 class="mb-4"><b>{{$Book->name}}</b></h3>
@@ -23,7 +23,7 @@
                                     alt="{{$Book->name}}" class="rounded-3xl object-fill w-full h-full">
                             </div>
                             <div>
-                                <span>{{ views($Book)->unique()->count() }}</span>
+                                <span>{{ views($Book)->remember()->unique()->count() }}</span>
                                 <i class="fa-solid fa-eye"></i>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
             <h2 class="text-2xl mb-5 text-center"><b>{{__('custom.home.categories')}}</b></h2>
             <div class="grid grid-cols-2 md:grid-cols-4 text-center mb-10 gap-4">
                 @foreach($Categories as $Category)
-                    <a href="{{url('/category/' . $Category->slug)}}">
+                    <a href="{{url($Category->slug)}}">
                         <div
                             class="col-span-1 bg-gray-800 overflow-hidden p-2 md:p-5 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
                             <h3><b>{{$Category->slug}}</b></h3>

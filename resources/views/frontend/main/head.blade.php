@@ -12,6 +12,7 @@
     <link href="https://v1.fontapi.ir/css/Vazir" rel="stylesheet">
     <link rel="stylesheet" href='{{asset("/css/frontend/style.css")}}'>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert -->
+    <script src="{{ asset("js/libraries/jquery.min.js") }}"></script> <!-- Jquery -->
     <title>@yield('title')</title>
     @vite('resources/css/app.css') <!-- TailWind Styles -->
 </head>

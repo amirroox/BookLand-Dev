@@ -34,4 +34,8 @@ return [
         'beHappy' => 'Be Happy',
         'page' => 'page',
     ],
+
+    'newest' => 'Newest',
+    'mostVisited' => 'The most visited',
+    'allBooks' => 'All Books',
 ];

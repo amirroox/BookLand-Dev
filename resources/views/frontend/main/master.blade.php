@@ -10,7 +10,7 @@
 @include('frontend.main.header')
 
 <!-- START MAIN SECTION -->
-<section class="container p-10 text-white mx-auto">
+<section class="container p-5 md:p-10 text-white mx-auto">
     @yield('content')
 </section>
 <!-- END MAIN SECTION -->

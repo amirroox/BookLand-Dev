@@ -46,6 +46,12 @@ Route::middleware('language')->group(function () {
         return view('frontend.pages.library', ['Books' => $Books]);
     })->name('library');
 
+    Route::get('/search', function () {
+        $search = Request::get('q');
+        $Books = Book::where('name', 'LIKE', "%$search%")->paginate(12)->appends(['q' => $search]);
+        return view('frontend.pages.search', ['Books' => $Books]);
+    })->name('search');
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');

@@ -7,12 +7,12 @@
         </a>
     </div>
     <div class="md:col-span-2 flex justify-center items-center">
-        <form action="" method="get">
+        <form action="{{ route('search') }}" method="get">
             <label for="search">
                 <button type="submit"><i class="text-blue-500 hover:text-red-500 fa-brands fa-searchengin fa-2xl"></i>
                 </button>
-                <input class="p-1 text-center rounded-2xl outline-none bg-transparent border-2 border-red-500"
-                       type="text" name="search" id="search" placeholder="{{__('custom.header.search')}}">
+                <input class="text-red-500 p-1 text-center rounded-2xl outline-none bg-transparent border-2 border-red-500"
+                       type="text" name="q" id="search" placeholder="{{__('custom.header.search')}}">
             </label>
         </form>
     </div>

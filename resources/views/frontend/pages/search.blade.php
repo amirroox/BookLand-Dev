@@ -19,6 +19,11 @@
                 <b>{{ \Illuminate\Support\Facades\Request::get('q')}}</b>
                 {{ " ({$Books->total()})" }}
             </h2>
+
+            @if($Books->total() == 0)
+                <h1 class="text-center text-3xl"> {{ __('custom.notFound') }} </h1>
+            @endif
+
             <div class="grid grid-cols-1 md:grid-cols-4 text-center mb-10 gap-4">
                 @foreach($Books as $Book)
                     <div
@@ -55,10 +60,14 @@
                     <i class="fa-solid fa-hand-point-right"></i>
                 </a>
             @endif
-            <a
-                class="text-center hover:duration-300 hover:bg-blue-500 absolute md:bottom-[-5vh] bottom-[-2vh] rounded-3xl mx-auto bg-red-500 left-[30%] right-[30%] p-2 md:p-6">
-                {{__('custom.home.page') . ' ' .$Books->currentPage()}}
-            </a>
+
+            @if(!$Books->total() == 0)
+                <a
+                    class="text-center hover:duration-300 hover:bg-blue-500 absolute md:bottom-[-5vh] bottom-[-2vh] rounded-3xl mx-auto bg-red-500 left-[30%] right-[30%] p-2 md:p-6">
+                    {{__('custom.home.page') . ' ' .$Books->currentPage()}}
+                </a>
+            @endif
+
             @if(!is_null($Books->previousPageUrl()))
                 <a href="{{$Books->previousPageUrl()}}"
                    class="text-center hover:duration-300 hover:bg-blue-500 absolute md:bottom-[-5vh] bottom-[-2vh] rounded-3xl mx-auto bg-red-500 left-10 p-2 md:p-6">

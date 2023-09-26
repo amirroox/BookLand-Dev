@@ -52,12 +52,7 @@ Route::middleware('language')->group(function () {
         return view('frontend.pages.search', ['Books' => $Books]);
     })->name('search');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
-
 });
-
 
 Route::middleware(['language','auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -66,6 +61,12 @@ Route::middleware(['language','auth'])->group(function () {
 
     Route::post('/dashboard/CreateBook', [BookController::class, 'store'])->name('book.create');
     Route::post('/dashboard/CreateCategory', [CategoryController::class, 'store'])->name('category.create');
+});
+
+Route::middleware(['AdminMiddleware', 'auth', 'verified'])->group(function (){
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });
 
 require __DIR__.'/auth.php';

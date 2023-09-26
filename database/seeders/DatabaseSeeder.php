@@ -15,12 +15,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        Book::factory(100)->has(Category::factory()->count(3))->create();
-        // \App\Models\User::factory(10)->create();
+//        Book::factory(10)->has(Category::factory()->count(3))->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $categories = Category::all();
+
+        Book::factory(100)->create()->each(function ($book) use ($categories) {
+            $randomCategory = $categories->random();
+            $book->categories()->attach($randomCategory);
+        });
     }
 }

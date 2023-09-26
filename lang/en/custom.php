@@ -38,4 +38,6 @@ return [
     'newest' => 'Newest',
     'mostVisited' => 'The most visited',
     'allBooks' => 'All Books',
+    'notFound' => 'Nothing found',
+    'recentBook' => 'Recent Book',
 ];

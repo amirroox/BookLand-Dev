@@ -12,7 +12,7 @@
 
     @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin)
         <div id="EditBtn" class="bg-gray-600 p-5 text-center rounded-full right-10 bottom-10 fixed z-10">
-            <a href="{{ route('editCategoryShow', $CurrentCategory->slug) }}">{{ __('auth.dashboard.editCategory') }}</a>
+            <a target="_blank" href="{{ route('editCategoryShow', $CurrentCategory->slug) }}">{{ __('auth.dashboard.editCategory') }}</a>
         </div>
     @endif
 
@@ -38,7 +38,7 @@
                             <img
                                 src="{{ ($newBook[$i]->cover ?? ( strpos(asset($newBook[$i]->photo_path), 'img/books') ? asset($newBook[$i]->photo_path) : asset('img/books/template.png') )) }}"
                                 alt="{{ $newBook[$i]->name }}"
-                                class="h-full w-full object-fill rounded-lg mx-auto">
+                                class="h-full w-full object-cover rounded-lg mx-auto">
                             <div
                                 class="overflow-hidden text-xl absolute z-10 mx-auto bottom-[-100%] duration-300 bg-blue-500 p-2 h-full w-full flex items-center justify-center">
                                 {{ $newBook[$i]->name }}
@@ -61,7 +61,7 @@
                             <img
                                 src="{{ ($topViewBook[$i]->cover ?? ( strpos(asset($topViewBook[$i]->photo_path), 'img/books') ? asset($topViewBook[$i]->photo_path) : asset('img/books/template.png') )) }}"
                                 alt="{{ $topViewBook[$i]->name }}"
-                                class="h-full w-full object-fill rounded-lg mx-auto">
+                                class="h-full w-full object-cover rounded-lg mx-auto">
                             <div
                                 class="text-xl overflow-hidden absolute z-10 mx-auto bottom-[-100%] space-y-6 duration-300 bg-red-500 p-2 h-full w-full flex flex-col items-center justify-center">
                                 <p class="text-base">{{ $topViewBook[$i]->name }}</p>
@@ -80,7 +80,7 @@
     <div
         class="[&>div]:rounded-3xl [&>div]:mb-12 [&>div]:p-5 [&>div]:mx-auto [&>div]:bg-gray-900 p-5 bg-gray-800 rounded-3xl">
         <div class="relative">
-            <h2 class="text-2xl mb-5 text-center"><b>{{__('custom.home.books')}}</b></h2>
+            <h2 class="text-2xl mb-5 text-center"><b>{{__('custom.home.books') . " {$Books->total()}"}}</b></h2>
             <div class="grid grid-cols-1 md:grid-cols-4 text-center mb-10 gap-4">
                 @foreach($Books as $Book)
                     <div
@@ -92,7 +92,7 @@
                                 <i class="fa-solid fa-eye"></i>
                             </div>
                             <div class="h-full h-3/4 overflow-hidden">
-                                <img class="rounded-3xl object-fill w-full h-full"
+                                <img class="rounded-3xl object-cover w-full h-full"
                                      src="{{ ($Book->cover ?? ( strpos(asset($Book->photo_path), 'img/books') ? asset($Book->photo_path) : asset('img/books/template.png') )) }}"
                                      alt="{{$Book->name}}">
                             </div>

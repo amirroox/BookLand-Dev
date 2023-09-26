@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Book;
 use App\Models\Category;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,4 +88,8 @@ require __DIR__ . '/auth.php';
 Route::middleware('language')->group(function () {
     Route::get('/{Category}', [CategoryController::class, 'show'])->name('CategorySingle');
     Route::get('/{Category}/{Book}', [BookController::class, 'show']);
+});
+
+Route::get('/test/test/test', function (){
+    Cache::lock('hello',30);
 });

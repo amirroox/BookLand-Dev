@@ -4,7 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Category;
+use DOMDocument;
+use DOMXPath;
+use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
 
 class BookController extends Controller
@@ -41,12 +47,50 @@ class BookController extends Controller
         return redirect()->route('dashboard')->with('MassageAdd', 'Book Added!');
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function show($category, $book)
     {
         $book = Book::where('name', $book)->first();
         if (!is_null($book)) {
+            $cacheKey = 'book_' . $book;
+            if (Cache::has($cacheKey)) {
+                $textContentOfLastDiv = Cache::get($cacheKey);
+                views($book)->record();
+                return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
+            }
+            else {
+                $client = new Client();
+                try {
+                    $response = $client->request('GET', $book->url);
+                } catch (Exception $exception) {
+                    Cache::put($cacheKey, __('custom.lorem'), now()->addYears(100));
+                    views($book)->record();
+                    return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => __('custom.lorem')]);
+                }
+
+                if ($response->getStatusCode() == 200) {
+                    $htmlContent = $response->getBody()->getContents();
+                    $dom = new DOMDocument();
+                    @$dom->loadHTML($htmlContent);
+                    $xpath = new DOMXPath($dom);
+                    $infoTD = $xpath->query('//td[@id="info"]');
+                    if ($infoTD->length > 0) {
+                        $divsInsideInfoTD = $xpath->query('.//div', $infoTD->item(0));
+                        if ($divsInsideInfoTD->length > 0) {
+                            $lastDivInsideInfoTD = $divsInsideInfoTD->item($divsInsideInfoTD->length - 1);
+                            $textContentOfLastDiv = $lastDivInsideInfoTD->textContent;
+                            Cache::put($cacheKey, $textContentOfLastDiv, now()->addYears(100));
+                            views($book)->record();
+                            return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
+                        }
+                    }
+                }
+            }
+            Cache::put($cacheKey, __('custom.lorem'), now()->addYears(100));
             views($book)->record();
-            return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book]);
+            return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => __('custom.lorem')]);
         }
         return redirect()->route('home');
     }

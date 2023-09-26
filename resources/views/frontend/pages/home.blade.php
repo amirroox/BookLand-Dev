@@ -20,7 +20,7 @@
                             <div class="w-full h-3/4 overflow-hidden">
                                 <img
                                     src="{{ ($Book->cover ?? ( strpos(asset($Book->photo_path), 'img/books') ? asset($Book->photo_path) : asset('img/books/template.png') )) }}"
-                                    alt="{{$Book->name}}" class="rounded-3xl object-fill w-full h-full">
+                                    alt="{{$Book->name}}" class="rounded-3xl object-cover w-full h-full">
                             </div>
                             <div>
                                 <span>{{ views($Book)->remember()->unique()->count() }}</span>

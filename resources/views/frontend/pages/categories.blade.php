@@ -15,7 +15,7 @@
                             <div class="h-full overflow-hidden">
                                 <img
                                     src="{{ !is_null($Category->photo_path) ? asset($Category->photo_path) : asset('img/categories/template.jpg') }}"
-                                    alt="{{$Category->title}}" class="rounded-3xl object-fill w-full h-full">
+                                    alt="{{$Category->title}}" class="rounded-3xl object-cover w-full h-full">
                             </div>
                             <h3><b>{{$Category->title}}</b></h3>
                         </a>

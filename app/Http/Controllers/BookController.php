@@ -11,7 +11,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Stichoza\GoogleTranslate\Exceptions\LargeTextException;
+use Stichoza\GoogleTranslate\Exceptions\RateLimitException;
+use Stichoza\GoogleTranslate\Exceptions\TranslationRequestException;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class BookController extends Controller
 {
@@ -52,15 +57,24 @@ class BookController extends Controller
      */
     public function show($category, $book)
     {
+        $cacheKey = 'book_' . $book;
+        $cacheKeyFa = 'book_fa_' . $book;
         $book = Book::where('name', $book)->first();
-        if (!is_null($book)) {
-            $cacheKey = 'book_' . $book;
-            if (Cache::has($cacheKey)) {
-                $textContentOfLastDiv = Cache::get($cacheKey);
+
+        if (Session::get('locale') == 'fa') {
+            if (Cache::has($cacheKeyFa)) {
+                $textContentOfLastDiv = Cache::get($cacheKeyFa);
                 views($book)->record();
                 return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
             }
-            else {
+        }
+
+        if (Cache::has($cacheKey)) {
+            $textContentOfLastDiv = Cache::get($cacheKey);
+            views($book)->record();
+            return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
+        } else {
+            if (!is_null($book)) {
                 $client = new Client();
                 try {
                     $response = $client->request('GET', $book->url);
@@ -82,15 +96,23 @@ class BookController extends Controller
                             $lastDivInsideInfoTD = $divsInsideInfoTD->item($divsInsideInfoTD->length - 1);
                             $textContentOfLastDiv = $lastDivInsideInfoTD->textContent;
                             Cache::put($cacheKey, $textContentOfLastDiv, now()->addYears(100));
+                            try {
+                                $textContentOfLastDivFa = GoogleTranslate::trans($textContentOfLastDiv, 'fa', 'en');
+                                Cache::put($cacheKeyFa, $textContentOfLastDivFa, now()->addYears(100));
+                            } catch (LargeTextException|RateLimitException|TranslationRequestException $e) {
+                            }
                             views($book)->record();
+                            if (Session::get('locale') == 'fa'){
+                                return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDivFa]);
+                            }
                             return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
                         }
                     }
                 }
+                Cache::put($cacheKey, __('custom.lorem'), now()->addYears(100));
+                views($book)->record();
+                return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => __('custom.lorem')]);
             }
-            Cache::put($cacheKey, __('custom.lorem'), now()->addYears(100));
-            views($book)->record();
-            return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => __('custom.lorem')]);
         }
         return redirect()->route('home');
     }

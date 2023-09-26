@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('url', 2048);
             $table->string('cover_url', 2048)->nullable();
             $table->string('photo_path', 1024)->nullable();
-            $table->datetime('created_at');
-            $table->datetime('updated_at');
+            $table->timestamps();
         });
     }
 

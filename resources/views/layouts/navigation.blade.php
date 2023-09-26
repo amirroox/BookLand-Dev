@@ -15,6 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('auth.dashboard.panel') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('category')" :active="request()->routeIs('editCategoryShow')">
+                        {{ __('custom.header.categories') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('library')" :active="request()->routeIs('editBookShow')">
+                        {{ __('custom.header.library') }}
+                    </x-nav-link>
                 </div>
             </div>
 

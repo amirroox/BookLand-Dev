@@ -19,11 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/Language/{locale}', function (string $locale) {
-    if (! in_array($locale, ['en', 'fa'])) {
+    if (!in_array($locale, ['en', 'fa'])) {
         return redirect()->route('home');
     }
 
-    Session::put('locale',$locale);
+    Session::put('locale', $locale);
     return redirect()->back();
 })->name('language.switch');
 
@@ -54,22 +54,35 @@ Route::middleware('language')->group(function () {
 
 });
 
-Route::middleware(['language','auth'])->group(function () {
+Route::middleware(['language', 'auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::post('/dashboard/CreateBook', [BookController::class, 'store'])->name('book.create');
-    Route::post('/dashboard/CreateCategory', [CategoryController::class, 'store'])->name('category.create');
 });
 
-Route::middleware(['AdminMiddleware', 'auth', 'verified'])->group(function (){
+Route::middleware(['language', 'AdminMiddleware', 'auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::post('/dashboard/CreateBook', [BookController::class, 'store'])
+        ->name('book.create');
+
+    Route::post('/dashboard/CreateCategory', [CategoryController::class, 'store'])
+        ->name('category.create');
+
+    Route::get('/dashboard/{category}', [CategoryController::class, 'showEdit'])
+        ->name('editCategoryShow');
+    Route::post('/dashboard/{category}', [CategoryController::class, 'update'])
+        ->name('editCategory');
+
+    Route::get('/dashboard/{category}/{book}', [BookController::class, 'showEdit'])
+        ->name('editBookShow');
+    Route::post('/dashboard/edited/{book}', [BookController::class, 'update'])
+        ->name('editBook');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::middleware('language')->group(function () {
     Route::get('/{Category}', [CategoryController::class, 'show'])->name('CategorySingle');

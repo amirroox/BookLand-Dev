@@ -43,6 +43,8 @@ return [
         'urlDownload' => 'لینک دانلود',
         'urlCover' => 'لینک کاور',
         'picBook' => 'عکس کتاب',
+        'editCategory' => 'ویرایش دسته بندی',
+        'editBook' => 'ویرایش کتاب',
     ],
 
     'profile' => [

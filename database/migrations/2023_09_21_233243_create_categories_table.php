@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('slug', 255)->unique();
             $table->string('title', 255)->unique();
             $table->string('photo_path')->nullable();
-            $table->datetime('created_at');
-            $table->datetime('updated_at');
+            $table->timestamps();
         });
     }
 

@@ -118,12 +118,12 @@
                     </h2>
                     <div class="grid grid-cols-1 md:grid-cols-4 text-center mb-10 gap-4 py-4">
                         @php
-                            $Books = \App\Models\Book::limit(8)->orderBy('updated_at')->get();
+                            $Books = \App\Models\Book::limit(8)->orderBy('updated_at', 'desc')->get();
                         @endphp
                         @foreach($Books as $Book)
                             <div
                                 class="col-span-1 bg-gray-600 px-10 pt-5 pb-10 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
-                                <a href="{{ url($Book->categories[0]->slug . '/' . $Book->name) }}" class="inline-block h-60 md:h-64 space-y-6">
+                                <a href="{{ url('/dashboard/' . $Book->categories[0]->slug . '/' . $Book->name) }}" class="inline-block h-60 md:h-64 space-y-6">
                                     <div>
                                         <span>{{ views($Book)->unique()->count() }}</span>
                                         <i class="fa-solid fa-eye"></i>
@@ -140,7 +140,7 @@
                                     @if(!isset($Book->categories[$i]))
                                         @break
                                     @endif
-                                    <a href="{{url($Book->categories[$i]->slug)}}"
+                                    <a href="{{url('/dashboard/' . $Book->categories[$i]->slug)}}"
                                        class="hover:duration-300 hover:bg-white hover:text-red-500">
                                         <h4>{{$Book->categories[$i]->title}}</h4>
                                     </a>

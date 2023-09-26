@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,7 @@ class CategoryController extends Controller
 
         $category = new Category();
 
-        if($file = $request->file('filePath')){
+        if ($file = $request->file('filePath')) {
             $path = '/img/categories/' . $file->hashName();
             $file->move('img/categories', $file->hashName());
             $category->photo_path = $path;
@@ -32,10 +33,53 @@ class CategoryController extends Controller
     public function show($category)
     {
         $category = Category::where('slug', $category)->orWhere('title', $category)->first();
-        if(!is_null($category)){
+        if (!is_null($category)) {
             $allBooks = $category->books()->paginate(8);
             return view('frontend.pages.category', ['CurrentCategory' => $category, 'Books' => $allBooks]);
         }
         return redirect()->route('home');
+    }
+
+    public function showEdit($category)
+    {
+        $category = Category::where('slug', $category)->orWhere('title', $category)->first();
+        if (!is_null($category)) {
+            return view('frontend.panel.category', ['Category' => $category]);
+        }
+        return redirect()->route('dashboard');
+    }
+
+    public function update($categorySlug, Request $request)
+    {
+        $category = Category::where('slug', $categorySlug)->first();
+
+        $request->validate([
+            'categoryTitle' => [
+                'required',
+                'min:2',
+                'max:255',
+                Rule::unique('categories', 'title')->ignore($category->id)
+            ],
+            'categorySlug' => [
+                'required',
+                'min:2',
+                'max:255',
+                Rule::unique('categories', 'slug')->ignore($category->id)
+            ],
+            'filePath' => 'nullable|mimes:jpg,gif,png,tiff'
+        ]);
+
+        if($file = $request->file('filePath')){
+            $path = '/img/categories/' . $file->hashName();
+            $file->move('img/categories', $file->hashName());
+            $category->photo_path = $path;
+        }
+        $category->title = $request->input('categoryTitle');
+        $category->slug = $request->input('categorySlug');
+        $category->update();
+
+        return redirect()->route('dashboard')->with('MassageAdd', 'Category Edited!');
+
+
     }
 }

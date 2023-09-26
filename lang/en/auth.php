@@ -43,6 +43,8 @@ return [
         'urlDownload' => 'URL Download',
         'urlCover' => 'URL Cover',
         'picBook' => 'Picture Book',
+        'editCategory' => 'Edit Category',
+        'editBook' => 'Edit Book',
     ],
 
     'profile' => [

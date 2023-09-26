@@ -2,6 +2,7 @@
 
 const HeaderSection = $('#MyHeader');
 const footerLang = $('#footerLang');
+const EditButton = $('#EditBtn');
 $(window).scroll(function () {
     if ($(this).scrollTop() > 50) {
         // Fixing Jump
@@ -14,7 +15,16 @@ $(window).scroll(function () {
         HeaderSection.removeClass('scrolledMyHeader');
         footerLang.removeClass('!block');
     }
+
+    let windowsHeight = document.body.scrollHeight;
+    if ($(this).scrollTop() > 0.6 * windowsHeight) {
+        EditButton.hide();
+    }
+    else {
+        EditButton.show();
+    }
 });
+
 
 
 // {{-- Script For Sharing Host Deploy --}}

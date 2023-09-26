@@ -79,7 +79,8 @@ class BookController extends Controller
                 try {
                     $response = $client->request('GET', $book->url);
                 } catch (Exception $exception) {
-                    Cache::put($cacheKey, __('custom.lorem'), now()->addYears(100));
+                    Cache::put($cacheKey, __('custom.lorem', [], 'en'), now()->addYears(100));
+                    Cache::put($cacheKeyFa, __('custom.lorem', [], 'fa'), now()->addYears(100));
                     views($book)->record();
                     return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => __('custom.lorem')]);
                 }
@@ -96,6 +97,7 @@ class BookController extends Controller
                             $lastDivInsideInfoTD = $divsInsideInfoTD->item($divsInsideInfoTD->length - 1);
                             $textContentOfLastDiv = $lastDivInsideInfoTD->textContent;
                             Cache::put($cacheKey, $textContentOfLastDiv, now()->addYears(100));
+                            $textContentOfLastDivFa = '' ;
                             try {
                                 $textContentOfLastDivFa = GoogleTranslate::trans($textContentOfLastDiv, 'fa', 'en');
                                 Cache::put($cacheKeyFa, $textContentOfLastDivFa, now()->addYears(100));
@@ -109,7 +111,8 @@ class BookController extends Controller
                         }
                     }
                 }
-                Cache::put($cacheKey, __('custom.lorem'), now()->addYears(100));
+                Cache::put($cacheKey, __('custom.lorem', [], 'en'), now()->addYears(100));
+                Cache::put($cacheKeyFa, __('custom.lorem', [], 'fa'), now()->addYears(100));
                 views($book)->record();
                 return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => __('custom.lorem')]);
             }

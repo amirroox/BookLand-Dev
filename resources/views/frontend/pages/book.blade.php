@@ -11,6 +11,12 @@
         </div>
     @endif
 
+    @if(\Illuminate\Support\Facades\Session::get('locale') == 'fa')
+        <div class="bg-red-500 p-10 mb-6 text-center rounded-2xl">
+            <p class="text-3xl">توجه کنید که ترجمه به صورت خودکار انجام شده ، پس خورده نگیرید!</p>
+        </div>
+    @endif
+
     <div class="p-5 bg-gray-600 rounded-lg grid grid-cols-1 md:grid-cols-3 gap-4 h-[70vh] overflow-hidden">
         <div class="text-center md:col-span-1 overflow-hidden h-full">
             <img class="rounded-3xl h-full"

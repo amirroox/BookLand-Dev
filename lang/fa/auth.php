@@ -45,6 +45,10 @@ return [
         'picBook' => 'عکس کتاب',
         'editCategory' => 'ویرایش دسته بندی',
         'editBook' => 'ویرایش کتاب',
+        'BookAdded' => 'کتاب اضافه شد',
+        'CategoryAdded' => 'دسته بندی اضافه شد',
+        'BookEdited' => 'کتاب ویرایش شد',
+        'CategoryEdited' => 'دسته بندی ویرایش شد',
     ],
 
     'profile' => [

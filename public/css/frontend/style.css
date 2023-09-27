@@ -16,3 +16,16 @@ header#MyHeader {
         padding: .5rem 2rem !important;
     }
 }
+
+@keyframes ChangeColorHeader {
+    from {
+        filter: hue-rotate(0);
+    }
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+
+#BannerHeader {
+    animation: ChangeColorHeader 7s infinite;
+}

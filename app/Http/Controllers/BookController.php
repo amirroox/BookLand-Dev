@@ -34,7 +34,7 @@ class BookController extends Controller
 
         if ($file = $request->file('filePathBook')) {
             $path = '/img/books/' . $file->hashName();
-            $file->move('img/books', $file->hashName());
+            $file->move(public_path('img/books'), $file->hashName());
             $book->photo_path = $path;
         }
 
@@ -49,7 +49,7 @@ class BookController extends Controller
         $book->save();
         $book->categories()->attach($categoryList); # Relative Between Book And Categories
 
-        return redirect()->route('dashboard')->with('MassageAdd', 'Book Added!');
+        return redirect()->route('dashboard')->with('MassageAdd', __('auth.dashboard.BookAdded'));
     }
 
     /**
@@ -60,21 +60,20 @@ class BookController extends Controller
         $cacheKey = 'book_' . $book;
         $cacheKeyFa = 'book_fa_' . $book;
         $book = Book::where('name', $book)->first();
+        if (!is_null($book)) {
+            if (Session::get('locale') == 'fa') {
+                if (Cache::has($cacheKeyFa)) {
+                    $textContentOfLastDiv = Cache::get($cacheKeyFa);
+                    views($book)->record();
+                    return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
+                }
+            }
 
-        if (Session::get('locale') == 'fa') {
-            if (Cache::has($cacheKeyFa)) {
-                $textContentOfLastDiv = Cache::get($cacheKeyFa);
+            if (Cache::has($cacheKey)) {
+                $textContentOfLastDiv = Cache::get($cacheKey);
                 views($book)->record();
                 return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
-            }
-        }
-
-        if (Cache::has($cacheKey)) {
-            $textContentOfLastDiv = Cache::get($cacheKey);
-            views($book)->record();
-            return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
-        } else {
-            if (!is_null($book)) {
+            } else {
                 $client = new Client();
                 try {
                     $response = $client->request('GET', $book->url);
@@ -97,14 +96,14 @@ class BookController extends Controller
                             $lastDivInsideInfoTD = $divsInsideInfoTD->item($divsInsideInfoTD->length - 1);
                             $textContentOfLastDiv = $lastDivInsideInfoTD->textContent;
                             Cache::put($cacheKey, $textContentOfLastDiv, now()->addYears(100));
-                            $textContentOfLastDivFa = '' ;
+                            $textContentOfLastDivFa = '';
                             try {
                                 $textContentOfLastDivFa = GoogleTranslate::trans($textContentOfLastDiv, 'fa', 'en');
                                 Cache::put($cacheKeyFa, $textContentOfLastDivFa, now()->addYears(100));
                             } catch (LargeTextException|RateLimitException|TranslationRequestException $e) {
                             }
                             views($book)->record();
-                            if (Session::get('locale') == 'fa'){
+                            if (Session::get('locale') == 'fa') {
                                 return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDivFa]);
                             }
                             return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
@@ -155,10 +154,16 @@ class BookController extends Controller
             'filePathBook' => 'nullable|mimes:jpg,jpeg,gif,png,tiff'
         ]);
 
+        if(!is_null($book->photo_path)){
+            \File::delete(public_path($book->photo_path));
+        }
+
         if ($file = $request->file('filePathBook')) {
             $path = '/img/books/' . $file->hashName();
-            $file->move('img/books', $file->hashName());
+            $file->move(public_path('img/books'), $file->hashName());
             $book->photo_path = $path;
+        } else {
+            $book->photo_path = null;
         }
 
         $categoryList = array_map('intval', $request->input('categoryList')); # array => [1,2,3]
@@ -172,7 +177,7 @@ class BookController extends Controller
         $book->update();
         $book->categories()->sync($categoryList); # Relative Between Book And Categories
 
-        return redirect()->route('dashboard')->with('MassageAdd', 'Book Edited!');
+        return redirect()->route('dashboard')->with('MassageAdd', __('auth.dashboard.BookEdited'));
 
 
     }

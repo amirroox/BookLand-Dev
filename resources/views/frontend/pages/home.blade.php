@@ -5,26 +5,29 @@
 @section('content')
     <div
         class="[&>div]:rounded-3xl [&>div]:mb-12 [&>div]:p-5 [&>div]:mx-auto [&>div]:bg-gray-900 p-5 bg-gray-800 rounded-3xl">
-        <div class="!p-0 overflow-hidden">
-            <img src="{{ asset('img/BannerHome.png') }}" alt="Banner">
+        <div class="overflow-hidden">
+            <img class="rounded-2xl" src="{{ asset('img/BannerHome.png') }}" alt="Banner" id="BannerHeader">
         </div>
         <div class="relative">
             <h2 class="text-2xl mb-5 text-center"><b>{{__('custom.home.newBooks')}}</b></h2>
             <div class="grid grid-cols-1 md:grid-cols-4 text-center mb-10 gap-4">
                 @foreach($Books as $Book)
                     <a href="{{url($Book->categories[0]->slug . '/' . $Book->name)}}"
-                       class="inline-block h-[45vh] md:h-[23.5rem]">
+                       class="flex flex-col justify-center items-center">
                         <div
-                            class="h-full space-y-3 col-span-1 bg-gray-800 px-10 pt-5 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
-                            <h3 class="mb-4"><b>{{$Book->name}}</b></h3>
-                            <div class="w-full h-3/4 overflow-hidden">
+                            class="h-full space-y-3 flex flex-col col-span-1 bg-gray-800 px-10 py-4 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
+                            <h3 class="h-20 flex items-center justify-center"><b>{{$Book->name}}</b></h3>
+                            <div class="w-full h-72 md:h-64 overflow-hidden">
                                 <img
                                     src="{{ ($Book->cover ?? ( strpos(asset($Book->photo_path), 'img/books') ? asset($Book->photo_path) : asset('img/books/template.png') )) }}"
                                     alt="{{$Book->name}}" class="rounded-3xl object-cover w-full h-full">
                             </div>
-                            <div>
-                                <span>{{ views($Book)->remember()->unique()->count() }}</span>
-                                <i class="fa-solid fa-eye"></i>
+                            <div class="h-10 flex flex-col justify-center items-center">
+                                <span>
+                                    {{ views($Book)->remember()->unique()->count() }}
+                                    <i class="fa-solid fa-eye"></i>
+                                </span>
+
                             </div>
                         </div>
                     </a>

@@ -45,6 +45,10 @@ return [
         'picBook' => 'Picture Book',
         'editCategory' => 'Edit Category',
         'editBook' => 'Edit Book',
+        'BookAdded' => 'Book Added',
+        'CategoryAdded' => 'Category Added',
+        'BookEdited' => 'Book Edited',
+        'CategoryEdited' => 'Category Edited',
     ],
 
     'profile' => [

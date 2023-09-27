@@ -48,7 +48,11 @@ return [
         'BookAdded' => 'Book Added',
         'CategoryAdded' => 'Category Added',
         'BookEdited' => 'Book Edited',
+        'bookDeleted' => 'Book Deleted',
         'CategoryEdited' => 'Category Edited',
+        'categoryDeleted' => 'Category Deleted',
+        'deleteBook' => 'Delete Category',
+        'deleteCategory' => 'Delete Book',
     ],
 
     'profile' => [

@@ -89,4 +89,16 @@ class CategoryController extends Controller
 
 
     }
+
+    public function delete($category)
+    {
+        $category = Category::where('slug', $category)->first();
+
+        if(!is_null($category->photo_path)){
+            \File::delete(public_path($category->photo_path));
+        }
+
+        $category->delete();
+        return redirect()->route('dashboard')->with('MassageAdd', __('auth.dashboard.categoryDeleted'));
+    }
 }

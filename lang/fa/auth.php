@@ -48,7 +48,11 @@ return [
         'BookAdded' => 'کتاب اضافه شد',
         'CategoryAdded' => 'دسته بندی اضافه شد',
         'BookEdited' => 'کتاب ویرایش شد',
+        'bookDeleted' => 'کتاب حذف شد',
         'CategoryEdited' => 'دسته بندی ویرایش شد',
+        'categoryDeleted' => 'دسته بندی حذف شد',
+        'deleteBook' => 'حذف دسته بندی',
+        'deleteCategory' => 'حذف کتاب',
     ],
 
     'profile' => [

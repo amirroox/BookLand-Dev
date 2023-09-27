@@ -25,7 +25,7 @@
                             <h2 class="mb-2"><b>{{ __('auth.dashboard.addCategory') }}</b></h2>
                             <hr>
                             <br>
-                            {!! Form::open(['action' => 'POST', 'url' => route('category.create'), 'files' => true]) !!}
+                            {!! Form::open(['method' => 'POST', 'url' => route('category.create'), 'files' => true]) !!}
                             <div class="flex flex-col gap-2 mb-2">
                                 {!! Form::label('categoryTitle',  __('auth.dashboard.addCategory'), ['class' => 'w-full']) !!}
                                 {!! Form::text('categoryTitle', '', ['class' => 'rounded-lg text-black md:w-10/12 pl-4 ml-2', 'placeholder' => 'Laravel']) !!}
@@ -60,7 +60,7 @@
                             <h2 class="text-right mb-2"><b>{{ __('auth.dashboard.addBook') }}</b></h2>
                             <hr>
                             <br>
-                            {!! Form::open(['action' => 'POST', 'url' => route('book.create') , 'files' => true]) !!}
+                            {!! Form::open(['method' => 'POST', 'url' => route('book.create') , 'files' => true]) !!}
                             <div class="flex flex-col gap-2 mb-2">
                                 <label for="categoryList" class="w-full">{{ __('auth.dashboard.catBook') }}</label>
                                 <select name="categoryList[]" id="categoryList"

@@ -25,7 +25,7 @@
                         <h2 class="mb-2"><b>{{ __('auth.dashboard.editBook') }}</b></h2>
                         <hr>
                         <br>
-                        {!! Form::open(['action' => 'POST', 'url' => route('editBook', [$Book->name]) , 'files' => true]) !!}
+                        {!! Form::open(['method' => 'POST', 'url' => route('editBook', [$Book->name]) , 'files' => true]) !!}
                         <div class="flex flex-col gap-2 mb-2">
                             <label for="categoryList" class="w-full">{{ __('auth.dashboard.catBook') }}</label>
                             <select name="categoryList[]" id="categoryList"
@@ -60,6 +60,12 @@
                         </div>
                         <div class="flex flex-col gap-2 mb-2">
                             {!! Form::submit(__('auth.dashboard.editBook'), ['class' => 'rounded-lg bg-blue-500 hover:duration-300 hover:bg-red-500 p-2 ml-2 hover:cursor-pointer']) !!}
+                        </div>
+                        {!! Form::close() !!}
+
+                        {!! Form::open(['method' => 'DELETE', 'url' => route('deleteBook', [$Book->name])]) !!}
+                        <div class="flex flex-col gap-2 mb-2">
+                            {!! Form::submit(__('auth.dashboard.deleteBook'), ['class' => 'rounded-lg bg-blue-500 hover:duration-300 hover:bg-red-500 p-2 ml-2 hover:cursor-pointer']) !!}
                         </div>
                         {!! Form::close() !!}
                         @if($errors->hasAny(['categoryList', 'bookName', 'urlDownload', 'urlCover']))

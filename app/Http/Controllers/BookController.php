@@ -181,4 +181,17 @@ class BookController extends Controller
 
 
     }
+
+    public function delete($book)
+    {
+        $book = Book::where('name', $book)->first();
+
+        if(!is_null($book->photo_path)){
+            \File::delete(public_path($book->photo_path));
+        }
+
+        $book->delete();
+
+        return redirect()->route('dashboard')->with('MassageAdd', __('auth.dashboard.bookDeleted'));
+    }
 }

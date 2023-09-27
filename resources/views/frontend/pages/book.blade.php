@@ -30,11 +30,17 @@
             @endforeach
             <h3>{{ $CurrentBook->created_at }}</h3>
             <hr class="my-2">
-            <div class="my-2">
+            <div class="my-2 hidden md:block">
                 @if($DescriptionURL == '')
                     {{ __('custom.lorem') }}
                 @endif
                     {{ substr($DescriptionURL, 0, 1400) . '.......' }}
+            </div>
+            <div class="my-2 md:hidden">
+                @if($DescriptionURL == '')
+                    {{ __('custom.lorem') }}
+                @endif
+                {{ substr($DescriptionURL, 0, 400) . '.......' }}
             </div>
         </div>
     </div>

@@ -25,7 +25,7 @@
                         <h2 class="mb-2"><b>{{ __('auth.dashboard.editCategory') }}</b></h2>
                         <hr>
                         <br>
-                        {!! Form::open(['action' => 'POST', 'url' => route('editCategory', $Category->slug), 'files' => true]) !!}
+                        {!! Form::open(['method' => 'POST', 'url' => route('editCategory', $Category->slug), 'files' => true]) !!}
                         <div class="flex flex-col gap-2 mb-2">
                             {!! Form::label('categoryTitle',  __('auth.dashboard.categoryTitle'), ['class' => 'w-full']) !!}
                             {!! Form::text('categoryTitle', $Category->title, ['class' => 'rounded-lg text-black pl-4 ml-2', 'placeholder' => 'Laravel']) !!}
@@ -46,6 +46,12 @@
                         </div>
                         <div class="flex flex-col gap-2 mb-2">
                             {!! Form::submit(__('auth.dashboard.editCategory'), ['class' => 'rounded-lg bg-blue-500 hover:duration-300 hover:bg-red-500 p-2 ml-2 hover:cursor-pointer']) !!}
+                        </div>
+                        {!! Form::close() !!}
+
+                        {!! Form::open(['method' => 'DELETE', 'url' => route('deleteCategory', [$Category->slug])]) !!}
+                        <div class="flex flex-col gap-2 mb-2">
+                            {!! Form::submit(__('auth.dashboard.deleteCategory'), ['class' => 'rounded-lg bg-blue-500 hover:duration-300 hover:bg-red-500 p-2 ml-2 hover:cursor-pointer']) !!}
                         </div>
                         {!! Form::close() !!}
                         @if($errors->hasAny(['categoryTitle', 'categorySlug']))

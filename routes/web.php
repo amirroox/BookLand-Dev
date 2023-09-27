@@ -76,11 +76,15 @@ Route::middleware(['language', 'AdminMiddleware', 'auth', 'verified'])->group(fu
         ->name('editCategoryShow');
     Route::post('/dashboard/{category}', [CategoryController::class, 'update'])
         ->name('editCategory');
+    Route::delete('/dashboard/{category}', [CategoryController::class, 'delete'])
+        ->name('deleteCategory');
 
     Route::get('/dashboard/{category}/{book}', [BookController::class, 'showEdit'])
         ->name('editBookShow');
     Route::post('/dashboard/edited/{book}', [BookController::class, 'update'])
         ->name('editBook');
+    Route::delete('/dashboard/edited/{book}', [BookController::class, 'delete'])
+        ->name('deleteBook');
 });
 
 require __DIR__ . '/auth.php';

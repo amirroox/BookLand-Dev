@@ -41,4 +41,5 @@ return [
     'allBooks' => 'همه کتاب ها',
     'notFound' => 'چیزی پیدا نکردیم!',
     'recentBook' => 'کتاب های اخیر',
+    'DownloadLink' => 'لینک های دانلود',
 ];

@@ -7,12 +7,14 @@ use App\Models\Category;
 use DOMDocument;
 use DOMXPath;
 use Exception;
+use File;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Psr\SimpleCache\InvalidArgumentException;
 use Stichoza\GoogleTranslate\Exceptions\LargeTextException;
 use Stichoza\GoogleTranslate\Exceptions\RateLimitException;
 use Stichoza\GoogleTranslate\Exceptions\TranslationRequestException;
@@ -59,20 +61,22 @@ class BookController extends Controller
     {
         $cacheKey = 'book_' . $book;
         $cacheKeyFa = 'book_fa_' . $book;
+        $cacheKeyUrl = 'Download_' . $book;
         $book = Book::where('name', $book)->first();
         if (!is_null($book)) {
+            views($book)->record();
             if (Session::get('locale') == 'fa') {
-                if (Cache::has($cacheKeyFa)) {
+                if (Cache::has($cacheKeyUrl) && Cache::has($cacheKeyFa)) {
                     $textContentOfLastDiv = Cache::get($cacheKeyFa);
-                    views($book)->record();
-                    return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
+                    $downloadURL = Cache::get($cacheKeyUrl);
+                    return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv, 'DownloadURL' => $downloadURL]);
                 }
             }
 
-            if (Cache::has($cacheKey)) {
+            if (Cache::has($cacheKeyUrl) && Cache::has($cacheKey)) {
                 $textContentOfLastDiv = Cache::get($cacheKey);
-                views($book)->record();
-                return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
+                $downloadURL = Cache::get($cacheKeyUrl);
+                return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv, 'DownloadURL' => $downloadURL]);
             } else {
                 $client = new Client();
                 try {
@@ -80,8 +84,8 @@ class BookController extends Controller
                 } catch (Exception $exception) {
                     Cache::put($cacheKey, __('custom.lorem', [], 'en'), now()->addYears(100));
                     Cache::put($cacheKeyFa, __('custom.lorem', [], 'fa'), now()->addYears(100));
-                    views($book)->record();
-                    return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => __('custom.lorem')]);
+                    Cache::put($cacheKeyUrl, array(0), now()->addYears(100));
+                    return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => __('custom.lorem'), 'DownloadURL' => array(0)]);
                 }
 
                 if ($response->getStatusCode() == 200) {
@@ -90,8 +94,16 @@ class BookController extends Controller
                     @$dom->loadHTML($htmlContent);
                     $xpath = new DOMXPath($dom);
                     $infoTD = $xpath->query('//td[@id="info"]');
-                    if ($infoTD->length > 0) {
+                    $downloadURL = $xpath->query('//div[@id="download"]')->item(0);
+                    $allURL = array();
+                    if ($infoTD->length > 0 && $downloadURL) {
                         $divsInsideInfoTD = $xpath->query('.//div', $infoTD->item(0));
+                        $links = $downloadURL->getElementsByTagName('a');
+                        foreach ($links as $link) {
+                            $allURL[] = $link->getAttribute('href');
+                        }
+                        Cache::put($cacheKeyUrl, $allURL, now()->addYears(100));
+
                         if ($divsInsideInfoTD->length > 0) {
                             $lastDivInsideInfoTD = $divsInsideInfoTD->item($divsInsideInfoTD->length - 1);
                             $textContentOfLastDiv = $lastDivInsideInfoTD->textContent;
@@ -102,18 +114,17 @@ class BookController extends Controller
                                 Cache::put($cacheKeyFa, $textContentOfLastDivFa, now()->addYears(100));
                             } catch (LargeTextException|RateLimitException|TranslationRequestException $e) {
                             }
-                            views($book)->record();
                             if (Session::get('locale') == 'fa') {
-                                return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDivFa]);
+                                return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDivFa, 'DownloadURL' => $allURL]);
                             }
-                            return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv]);
+                            return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => $textContentOfLastDiv, 'DownloadURL' => $allURL]);
                         }
                     }
                 }
                 Cache::put($cacheKey, __('custom.lorem', [], 'en'), now()->addYears(100));
                 Cache::put($cacheKeyFa, __('custom.lorem', [], 'fa'), now()->addYears(100));
-                views($book)->record();
-                return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => __('custom.lorem')]);
+                Cache::put($cacheKeyUrl, array(0), now()->addYears(100));
+                return view('frontend.pages.book', ['CurrentCategory' => $category, 'CurrentBook' => $book, 'DescriptionURL' => __('custom.lorem'), 'DownloadURL' => array(0)]);
             }
         }
         return redirect()->route('home');
@@ -131,8 +142,15 @@ class BookController extends Controller
         return redirect()->route('dashboard');
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function update($book, Request $request)
     {
+        $cacheKey = 'book_' . $book;
+        $cacheKeyFa = 'book_fa_' . $book;
+        $cacheKeyUrl = 'Download_' . $book;
+
         $book = Book::where('name', $book)->first();
 
         $request->validate([
@@ -154,8 +172,8 @@ class BookController extends Controller
             'filePathBook' => 'nullable|mimes:jpg,jpeg,gif,png,tiff'
         ]);
 
-        if(!is_null($book->photo_path)){
-            \File::delete(public_path($book->photo_path));
+        if (!is_null($book->photo_path)) {
+            File::delete(public_path($book->photo_path));
         }
 
         if ($file = $request->file('filePathBook')) {
@@ -177,20 +195,44 @@ class BookController extends Controller
         $book->update();
         $book->categories()->sync($categoryList); # Relative Between Book And Categories
 
+        try {
+            Cache::delete($cacheKey);
+            Cache::delete($cacheKeyFa);
+            Cache::delete($cacheKeyUrl);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+
         return redirect()->route('dashboard')->with('MassageAdd', __('auth.dashboard.BookEdited'));
 
 
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function delete($book)
     {
+
+        $cacheKey = 'book_' . $book;
+        $cacheKeyFa = 'book_fa_' . $book;
+        $cacheKeyUrl = 'Download_' . $book;
+
         $book = Book::where('name', $book)->first();
 
-        if(!is_null($book->photo_path)){
-            \File::delete(public_path($book->photo_path));
+        if (!is_null($book->photo_path)) {
+            File::delete(public_path($book->photo_path));
         }
 
         $book->delete();
+
+        try {
+            Cache::delete($cacheKey);
+            Cache::delete($cacheKeyFa);
+            Cache::delete($cacheKeyUrl);
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
 
         return redirect()->route('dashboard')->with('MassageAdd', __('auth.dashboard.bookDeleted'));
     }

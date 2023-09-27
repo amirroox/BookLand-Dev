@@ -41,4 +41,5 @@ return [
     'allBooks' => 'All Books',
     'notFound' => 'Nothing found',
     'recentBook' => 'Recent Book',
+    'DownloadLink' => 'Download Link',
 ];

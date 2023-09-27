@@ -32,7 +32,7 @@
                                     class="rounded-lg text-black pl-4 ml-2" multiple>
                                 {{ $allCategory = \App\Models\Category::get() }}
                                 @foreach($allCategory as $category)
-                                    <option {{ $category }} value="{{$category->id}}">{{$category->title}}</option>
+                                    <option {{ $category->slug == $Book->categories[0]->slug ? 'selected' : '' }} value="{{$category->id}}">{{$category->title}}</option>
                                 @endforeach
                             </select>
                         </div>

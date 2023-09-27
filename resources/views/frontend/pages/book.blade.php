@@ -26,22 +26,49 @@
         <div class="md:col-span-2 overflow-hidden">
             <h1 class="text-4xl md:text-6xl my-2">{{ $CurrentBook->name }}</h1>
             @foreach($CurrentBook->categories as $category)
-                <span class="text-xl md:text-2xl"><a class="hover:text-red-500" href="{{ url($category->slug) }}">{{ $category->title }}</a></span>
+                <span class="text-xl md:text-2xl">
+                    <a class="hover:text-red-500" href="{{ url($category->slug) }}">
+                        {{ $category->title }}
+                    </a>
+                </span>
             @endforeach
             <h3>{{ $CurrentBook->created_at }}</h3>
             <hr class="my-2">
             <div class="my-2 hidden md:block">
-                @if($DescriptionURL == '')
-                    {{ __('custom.lorem') }}
-                @endif
-                    {{ substr($DescriptionURL, 0, 1400) . '.......' }}
+                <p class="text-justify">
+                    @if($DescriptionURL == '')
+                        {{ __('custom.lorem') }}
+                    @endif
+                    {{ substr($DescriptionURL, 0, 1000) . '.......' }}
+                </p>
             </div>
             <div class="my-2 md:hidden">
-                @if($DescriptionURL == '')
-                    {{ __('custom.lorem') }}
-                @endif
-                {{ substr($DescriptionURL, 0, 400) . '.......' }}
+                <p class="text-justify">
+                    @if($DescriptionURL == '')
+                        {{ __('custom.lorem') }}
+                    @endif
+                    {{ substr($DescriptionURL, 0, 400) . '.......' }}
+                </p>
             </div>
+        </div>
+    </div>
+    <br>
+    <div class="p-5 text-center bg-gray-600 rounded-lg h-full overflow-hidden">
+        <p class="text-4xl">{{ $CurrentBook->name }}</p>
+        <hr class="my-5 w-1/2 mx-auto">
+        <p class="text-justify">
+            {{ $DescriptionURL }}
+        </p>
+        <br class="my-5">
+        <h3 class="text-4xl mb-4">{{ __('custom.DownloadLink') }}</h3>
+        <div class="flex flex-col md:flex-row justify-around items-spa gap-10">
+            <?php $i = 0 ?>
+            @foreach($DownloadURL as $url)
+                @if(strpos($url, 'localhost:8080') || strpos($url, '/main/') || strpos($url, 'howtogeek.com'))
+                    @continue
+                @endif
+                <a class="block p-5 w-full bg-blue-500 rounded-2xl duration-300 hover:bg-red-500" href="{{ $url }}" target="_blank"> {{ "Link " . ++$i }} </a>
+            @endforeach
         </div>
     </div>
 @endsection

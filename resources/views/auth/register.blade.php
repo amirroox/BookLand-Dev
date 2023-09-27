@@ -1,4 +1,9 @@
 <x-guest-layout>
+    <div class="text-white text-center">
+        <p class="mb-4 text-red-500" dir="{{\Illuminate\Support\Facades\Session::get('locale') == 'fa' ? 'rtl' : 'ltr'}}">
+                {{ __('auth.justAdmin') }}
+        </p>
+    </div>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 

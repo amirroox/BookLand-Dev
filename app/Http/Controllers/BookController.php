@@ -180,16 +180,13 @@ class BookController extends Controller
             'filePathBook' => 'nullable|mimes:jpg,jpeg,gif,png,tiff'
         ]);
 
-        if (!is_null($book->photo_path)) {
-            File::delete(public_path($book->photo_path));
-        }
-
         if ($file = $request->file('filePathBook')) {
+            if (!is_null($book->photo_path)) {
+                File::delete(public_path($book->photo_path));
+            }
             $path = '/img/books/' . $file->hashName();
             $file->move(public_path('img/books'), $file->hashName());
             $book->photo_path = $path;
-        } else {
-            $book->photo_path = null;
         }
 
         $categoryList = array_map('intval', $request->input('categoryList')); # array => [1,2,3]

@@ -69,16 +69,13 @@ class CategoryController extends Controller
             'filePath' => 'nullable|mimes:jpg,gif,png,tiff'
         ]);
 
-        if(!is_null($category->photo_path)){
-            \File::delete(public_path($category->photo_path));
-        }
-
         if($file = $request->file('filePath')){
+            if(!is_null($category->photo_path)){
+                \File::delete(public_path($category->photo_path));
+            }
             $path = '/img/categories/' . $file->hashName();
             $file->move(public_path('img/categories'), $file->hashName());
             $category->photo_path = $path;
-        } else {
-            $category->photo_path = null;
         }
 
         $category->title = $request->input('categoryTitle');

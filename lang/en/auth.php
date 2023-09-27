@@ -82,5 +82,6 @@ return [
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'justAdmin' => 'This page is like this! It doesn\'t matter if you register or not!',
 
 ];

@@ -53,6 +53,8 @@ return [
         'categoryDeleted' => 'دسته بندی حذف شد',
         'deleteBook' => 'حذف دسته بندی',
         'deleteCategory' => 'حذف کتاب',
+        'publisher' => 'ناشر',
+        'release' => 'تاریخ انتشار',
     ],
 
     'profile' => [

@@ -53,6 +53,8 @@ return [
         'categoryDeleted' => 'Category Deleted',
         'deleteBook' => 'Delete Category',
         'deleteCategory' => 'Delete Book',
+        'publisher' => 'Publisher Book',
+        'release' => 'Release Book',
     ],
 
     'profile' => [

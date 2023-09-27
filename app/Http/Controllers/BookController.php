@@ -27,6 +27,8 @@ class BookController extends Controller
         $request->validate([
             'categoryList' => 'required|max:255',
             'bookName' => 'required|min:2|max:255|unique:App\Models\Book,name',
+            'release' => 'nullable|min:2|max:255|integer',
+            'publisher' => 'nullable|min:2|max:255',
             'urlDownload' => 'required|min:2|max:255|url|unique:App\Models\Book,url',
             'urlCover' => 'nullable|min:2|max:255|url',
             'filePathBook' => 'nullable|mimes:jpg,jpeg,gif,png,tiff'
@@ -44,6 +46,8 @@ class BookController extends Controller
 
 
         $book->name = $request->input('bookName');
+        $book->release = $request->input('release');
+        $book->publisher = $request->input('publisher');
         $book->url = $request->input('urlDownload');
         if (!is_null($request->input('urlCover'))) {
             $book->cover = $request->input('urlCover');
@@ -64,7 +68,8 @@ class BookController extends Controller
         $cacheKeyFa = 'book_fa_' . $book;
         $cacheKeyUrl = 'Download_' . $book;
         $book = Book::where('name', $book)->first();
-        if (!is_null($book)) {
+        $currentCategory = $book->categories[0]->slug;
+        if (!is_null($book) && $category == $currentCategory) {
             views($book)->record();
             if (Session::get('locale') == 'fa') {
                 if (Cache::has($cacheKeyUrl) && Cache::has($cacheKeyFa)) {
@@ -162,6 +167,8 @@ class BookController extends Controller
                 'max:255',
                 Rule::unique('books', 'name')->ignore($book->id)
             ],
+            'release' => 'nullable|min:2|max:255',
+            'publisher' => 'nullable|min:2|max:255',
             'urlDownload' => [
                 'required',
                 'min:2',
@@ -189,6 +196,8 @@ class BookController extends Controller
 
 
         $book->name = $request->input('bookName');
+        $book->release = $request->input('release');
+        $book->publisher = $request->input('publisher');
         $book->url = $request->input('urlDownload');
         if (!is_null($request->input('urlCover'))) {
             $book->cover = $request->input('urlCover');
@@ -204,7 +213,7 @@ class BookController extends Controller
             dd($e->getMessage());
         }
 
-        return redirect()->route('BookSinglePage', [$book->categories[0], $book->name]);
+        return redirect()->route('BookSinglePage', [$book->categories[0]->slug, $book->name]);
 
 
     }

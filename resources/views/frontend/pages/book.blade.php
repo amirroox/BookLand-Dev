@@ -33,6 +33,8 @@
                 </span>
             @endforeach
             <h3>{{ $CurrentBook->created_at }}</h3>
+            <h3>{{ __('auth.dashboard.publisher') . ' : ' . $CurrentBook->publisher }}</h3>
+            <h3>{{ __('auth.dashboard.release') . ' : ' .  $CurrentBook->release }}</h3>
             <hr class="my-2">
             <div class="my-2 hidden md:block">
                 <p class="text-justify">

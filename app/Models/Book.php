@@ -39,6 +39,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Book orderByUniqueViews(string $direction = 'desc', $period = null, ?string $collection = null, string $as = 'unique_views_count')
  * @method static \Illuminate\Database\Eloquent\Builder|Book orderByViews(string $direction = 'desc', ?\CyrildeWit\EloquentViewable\Support\Period $period = null, ?string $collection = null, bool $unique = false, string $as = 'views_count')
  * @method static \Illuminate\Database\Eloquent\Builder|Book withViewsCount(?\CyrildeWit\EloquentViewable\Support\Period $period = null, ?string $collection = null, bool $unique = false, string $as = 'views_count')
+ * @property string|null $release
+ * @property string|null $publisher
+ * @method static \Database\Factories\BookFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Book wherePublisher($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Book whereRelease($value)
  * @mixin \Eloquent
  */
 class Book extends Model implements Viewable

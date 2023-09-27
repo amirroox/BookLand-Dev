@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read int|null $books_count
  * @property string|null $photo_path
  * @method static \Illuminate\Database\Eloquent\Builder|Category wherePhotoPath($value)
+ * @method static \Database\Factories\CategoryFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class Category extends Model

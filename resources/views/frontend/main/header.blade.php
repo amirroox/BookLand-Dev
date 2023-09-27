@@ -51,7 +51,7 @@
                     {{__('custom.header.github')}}
                 </a>
             </li>
-            @if(\Illuminate\Support\Facades\Auth::check())
+            @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin)
             <li class="hover:text-blue-500">
                 <a href="{{route('dashboard')}}" class="flex flex-col gap-5">
                     <span><i class="fa-solid fa-user-secret fa-xl"></i></span>

@@ -41,6 +41,14 @@
                             {!! Form::text('bookName', $Book->name, ['class' => 'rounded-lg text-black pl-4 ml-2', 'placeholder' => 'Mastering Laravel']) !!}
                         </div>
                         <div class="flex flex-col gap-2 mb-2">
+                            {!! Form::label('publisher', __('auth.dashboard.publisher'), ['class' => 'w-full']) !!}
+                            {!! Form::text('publisher', $Book->publisher, ['class' => 'rounded-lg text-black pl-4 ml-2', 'placeholder' => 'o\'reilly']) !!}
+                        </div>
+                        <div class="flex flex-col gap-2 mb-2">
+                            {!! Form::label('release', __('auth.dashboard.release'), ['class' => 'w-full']) !!}
+                            {!! Form::text('release', $Book->release, ['class' => 'rounded-lg text-black pl-4 ml-2', 'placeholder' => '2023']) !!}
+                        </div>
+                        <div class="flex flex-col gap-2 mb-2">
                             {!! Form::label('urlDownload', __('auth.dashboard.urlDownload'), ['class' => 'w-full']) !!}
                             {!! Form::text('urlDownload', $Book->url, ['class' => 'text-left rounded-lg text-black pl-4 ml-2', 'dir' => 'ltr', 'placeholder' => '(libgen.is) - https://libgen.is/book/index.php?md5=?']) !!}
                         </div>

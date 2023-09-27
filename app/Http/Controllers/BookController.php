@@ -27,7 +27,7 @@ class BookController extends Controller
         $request->validate([
             'categoryList' => 'required|max:255',
             'bookName' => 'required|min:2|max:255|unique:App\Models\Book,name',
-            'release' => 'nullable|min:2|max:255|integer',
+            'release' => 'nullable|min:2|max:255',
             'publisher' => 'nullable|min:2|max:255',
             'urlDownload' => 'required|min:2|max:255|url|unique:App\Models\Book,url',
             'urlCover' => 'nullable|min:2|max:255|url',

@@ -41,7 +41,7 @@
                     @if($DescriptionURL == '')
                         {{ __('custom.lorem') }}
                     @endif
-                    {{ substr($DescriptionURL, 0, 1000) . '.......' }}
+                    {{ substr($DescriptionURL, 0, 300) . '.......' }}
                 </p>
             </div>
             <div class="my-2 md:hidden">

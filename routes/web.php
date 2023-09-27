@@ -91,5 +91,5 @@ require __DIR__ . '/auth.php';
 
 Route::middleware('language')->group(function () {
     Route::get('/{Category}', [CategoryController::class, 'show'])->name('CategorySingle');
-    Route::get('/{Category}/{Book}', [BookController::class, 'show']);
+    Route::get('/{Category}/{Book}', [BookController::class, 'show'])->name('BookSinglePage');
 });

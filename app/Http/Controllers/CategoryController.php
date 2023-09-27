@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
     public function show($category)
     {
-        $category = Category::where('slug', $category)->orWhere('title', $category)->first();
+        $category = Category::where('slug', $category)->first();
         if (!is_null($category)) {
             $allBooks = $category->books()->paginate(8);
             return view('frontend.pages.category', ['CurrentCategory' => $category, 'Books' => $allBooks]);
@@ -85,7 +85,7 @@ class CategoryController extends Controller
         $category->slug = $request->input('categorySlug');
         $category->update();
 
-        return redirect()->route('dashboard')->with('MassageAdd', __('auth.dashboard.CategoryEdited'));
+        return redirect()->route('CategorySingle', [$category->slug]);
 
 
     }

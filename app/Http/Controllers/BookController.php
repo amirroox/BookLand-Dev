@@ -59,6 +59,7 @@ class BookController extends Controller
      */
     public function show($category, $book)
     {
+        /* First Loading Up For Fetching and Caching */
         $cacheKey = 'book_' . $book;
         $cacheKeyFa = 'book_fa_' . $book;
         $cacheKeyUrl = 'Download_' . $book;
@@ -203,7 +204,7 @@ class BookController extends Controller
             dd($e->getMessage());
         }
 
-        return redirect()->route('dashboard')->with('MassageAdd', __('auth.dashboard.BookEdited'));
+        return redirect()->route('BookSinglePage', [$book->categories[0], $book->name]);
 
 
     }

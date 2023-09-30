@@ -17,7 +17,7 @@ $(window).scroll(function () {
     }
 
     let windowsHeight = document.body.scrollHeight;
-    if ($(this).scrollTop() > 0.6 * windowsHeight) {
+    if ($(this).scrollTop() > 0.6 * windowsHeight || $(this).scrollTop() < 0.2 * windowsHeight) {
         EditButton.fadeOut();
     }
     else {

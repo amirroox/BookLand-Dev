@@ -5,7 +5,7 @@
 @section('content')
 
     @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin)
-        <div id="EditBtn" class="bg-gray-600 p-5 text-center rounded-full right-10 bottom-10 fixed z-10">
+        <div id="EditBtn" class="border-2 bg-gray-600 p-5 text-center rounded-full right-10 bottom-10 fixed z-10">
             <a
                href="{{ route('editBookShow', [$CurrentCategory ,$CurrentBook->name]) }}">{{ __('auth.dashboard.editBook') }}</a>
         </div>

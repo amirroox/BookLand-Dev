@@ -16,7 +16,7 @@
                        class="flex flex-col justify-center items-center">
                         <div
                             class="h-full space-y-3 flex flex-col col-span-1 bg-gray-800 px-10 py-4 rounded-3xl hover:duration-300 hover:bg-white hover:text-black">
-                            <h3 class="h-20 flex items-center justify-center"><b>{{$Book->name}}</b></h3>
+                            <h3 class="h-20 flex items-center justify-center"><b>{{limitText($Book->name)}}</b></h3>
                             <div class="w-full h-72 md:h-64 overflow-hidden">
                                 <img
                                     src="{{ ($Book->cover ?? ( strpos(asset($Book->photo_path), 'img/books') ? asset($Book->photo_path) : asset('img/books/template.png') )) }}"

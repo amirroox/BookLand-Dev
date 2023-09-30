@@ -39,7 +39,7 @@
                                      src="{{ ($Book->cover ?? ( strpos(asset($Book->photo_path), 'img/books') ? asset($Book->photo_path) : asset('img/books/template.png') )) }}"
                                      alt="{{$Book->name}}">
                             </div>
-                            <h3 class="h-20 flex items-center justify-center"><b>{{$Book->name}}</b></h3>
+                            <h3 class="h-20 flex items-center justify-center"><b>{{ limitText($Book->name) }}</b></h3>
                             <hr class="pb-5">
                         </a>
                         <div class="h-16 flex flex-col items-center justify-center">

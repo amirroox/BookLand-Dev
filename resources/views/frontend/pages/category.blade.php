@@ -41,7 +41,7 @@
                                 class="h-full w-full object-cover rounded-lg mx-auto">
                             <div
                                 class="overflow-hidden text-xl absolute z-10 mx-auto bottom-[-100%] duration-300 bg-blue-500 p-2 h-full w-full flex items-center justify-center">
-                                {{ substr($newBook[$i]->name, 0 , 20) . "..." }}
+                                <p class="text-base">{{ limitText($newBook[$i]->name, 20) }}</p>
                             </div>
                         </div>
                     </a>
@@ -64,7 +64,7 @@
                                 class="h-full w-full object-cover rounded-lg mx-auto">
                             <div
                                 class="text-xl overflow-hidden absolute z-10 mx-auto bottom-[-100%] space-y-6 duration-300 bg-red-500 p-2 h-full w-full flex flex-col items-center justify-center">
-                                <p class="text-base">{{ substr($topViewBook[$i]->name, 0 , 20) . '...' }}</p>
+                                <p class="text-base">{{ limitText($topViewBook[$i]->name, 20) }}</p>
                                 <div>
                                     <i class="fa-solid fa-eye align-middle"></i>
                                     <i>{{ views($topViewBook[$i])->remember()->unique()->count() }}</i>
@@ -96,7 +96,7 @@
                                      src="{{ ($Book->cover ?? ( strpos(asset($Book->photo_path), 'img/books') ? asset($Book->photo_path) : asset('img/books/template.png') )) }}"
                                      alt="{{$Book->name}}">
                             </div>
-                            <h3 class="h-20 flex items-center justify-center"><b>{{$Book->name}}</b></h3>
+                            <h3 class="h-20 flex items-center justify-center"><b>{{ limitText($Book->name) }}</b></h3>
                             <hr class="pb-5">
                         </a>
                         <div class="h-16 flex flex-col items-center justify-center">

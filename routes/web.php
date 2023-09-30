@@ -49,7 +49,7 @@ Route::middleware('language')->group(function () {
 
     Route::get('/search', function () {
         $search = Request::get('q');
-        $Books = Book::where('name', 'LIKE', "%$search%")->paginate(12)->appends(['q' => $search]);
+        $Books = Book::where('name', 'LIKE', "%$search%")->orWhere('publisher', 'LIKE', "%$search%")->paginate(12)->appends(['q' => $search]);
         return view('frontend.pages.search', ['Books' => $Books]);
     })->name('search');
 
